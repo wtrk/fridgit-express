@@ -35,14 +35,14 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     usertype_id: {
-      type: Number,
-      max: 1,
-      default: 0,
+      type: String,
+      max: 150,
       trim: true,
     },
     profile_id: {
-      type: Number,
-      max: 1,
+      type: String,
+      max: 150,
+      trim: true,
     },
     is_admin: {
       type: Number,
