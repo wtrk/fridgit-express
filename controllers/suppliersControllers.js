@@ -46,7 +46,7 @@ exports.supplierDetails = async (req,res) => {
 
 exports.supplierUpdate = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let supplier = await Supplier.findByIdAndUpdate (req.param('id'), req.body, function(err, supplier) {
+  let supplier = await Supplier.findByIdAndUpdate(req.param('id'), req.body[0], function(err, supplier) {
     if (err) {
       return res.status(400).json({
         error: err,

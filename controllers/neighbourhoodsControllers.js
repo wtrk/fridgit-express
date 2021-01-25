@@ -46,7 +46,7 @@ exports.neighbourhoodDetails = async (req,res) => {
 
 exports.neighbourhoodUpdate = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let neighbourhood = await Neighbourhood.findByIdAndUpdate (req.param('id'), req.body, function(err, neighbourhood) {
+  let neighbourhood = await Neighbourhood.findByIdAndUpdate(req.param('id'), req.body[0], function(err, neighbourhood) {
     if (err) {
       return res.status(400).json({
         error: err,

@@ -46,7 +46,7 @@ exports.userProfileDetails = async (req,res) => {
 
 exports.userProfileUpdate = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let userProfile = await UserProfile.findByIdAndUpdate (req.param('id'), req.body, function(err, userProfile) {
+  let userProfile = await UserProfile.findByIdAndUpdate(req.param('id'), req.body[0], function(err, userProfile) {
     if (err) {
       return res.status(400).json({
         error: err,

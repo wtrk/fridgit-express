@@ -13,7 +13,6 @@ exports.serviceTypeAdd = async (req,res) => {
 }
 
 exports.serviceTypesList = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let serviceTypes = await ServiceType.find({}, function(err, serviceTypes) {
     if (err) {
       return res.status(400).json({
@@ -29,7 +28,6 @@ exports.serviceTypesList = async (req,res) => {
 }
 
 exports.serviceTypeDetails = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let serviceType = await ServiceType.findById(req.param('id'), function(err, serviceType) {
     if (err) {
       return res.status(400).json({
@@ -45,8 +43,7 @@ exports.serviceTypeDetails = async (req,res) => {
 }
 
 exports.serviceTypeUpdate = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  let serviceType = await ServiceType.findByIdAndUpdate (req.param('id'), req.body, function(err, serviceType) {
+  let serviceType = await ServiceType.findByIdAndUpdate(req.param('id'), req.body[0], function(err, serviceType) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -63,7 +60,6 @@ exports.serviceTypeUpdate = async (req,res) => {
 }
 
 exports.serviceTypeDelete = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let serviceType = await ServiceType.deleteMany(
     {
       _id: {

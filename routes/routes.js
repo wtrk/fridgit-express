@@ -20,6 +20,7 @@ router.put("/users/:id", usersControllers.userUpdate)
 router.delete("/users/:ids", usersControllers.userDelete)
 
 router.get("/userType", userTypesControllers.userTypesList)
+router.post("/userType", userTypesControllers.userTypeAdd)
 
 router.get("/userProfile", userProfilesControllers.userProfilesList)
 router.get("/userProfile/:id", userProfilesControllers.userProfileDetails)

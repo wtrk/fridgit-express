@@ -22,7 +22,7 @@ const routes = require('./routes/routes')
 //app middleware
 app.use(morgan('dev'))
 app.use(bodyParser.json())
-//app.use(cors()) //allows all origins
+app.use(cors()) //allows all origins
 // if(process.env.NODE_ENV == 'development'){
 //     app.use(cors({origin:process.env.CLIENT_URL}))
 // }

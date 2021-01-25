@@ -47,7 +47,7 @@ exports.warehouseDetails = async (req,res) => {
 
 exports.warehouseUpdate = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let warehouse = await Warehouse.findByIdAndUpdate (req.param('id'), req.body, function(err, warehouse) {
+  let warehouse = await Warehouse.findByIdAndUpdate(req.param('id'), req.body[0], function(err, warehouse) {
     if (err) {
       return res.status(400).json({
         error: err,

@@ -46,7 +46,7 @@ exports.countryDetails = async (req,res) => {
 
 exports.countryUpdate = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let country = await Country.findByIdAndUpdate (req.param('id'), req.body, function(err, country) {
+  let country = await Country.findByIdAndUpdate(req.param('id'), req.body[0], function(err, country) {
     if (err) {
       return res.status(400).json({
         error: err,

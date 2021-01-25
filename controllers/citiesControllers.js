@@ -1,7 +1,6 @@
 const City = require('../models/cities')
 
 exports.cityAdd = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let newCity = await City.insertMany(req.body, function(err, cities) {
     if (err) {
       return res.status(400).json({
@@ -12,7 +11,6 @@ exports.cityAdd = async (req,res) => {
   })
 }
 exports.citiesList = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let cities = await City.find({}, function(err, cities) {
     if (err) {
       return res.status(400).json({
@@ -28,7 +26,6 @@ exports.citiesList = async (req,res) => {
 }
 
 exports.cityDetails = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let city = await City.findById(req.param('id'), function(err, city) {
     if (err) {
       return res.status(400).json({
@@ -44,8 +41,7 @@ exports.cityDetails = async (req,res) => {
 }
 
 exports.cityUpdate = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  let city = await City.findByIdAndUpdate (req.param('id'), req.body, function(err, city) {
+  let city = await City.findByIdAndUpdate(req.param('id'), req.body[0], function(err, city) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -62,7 +58,6 @@ exports.cityUpdate = async (req,res) => {
 }
 
 exports.cityDelete = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let city = await City.deleteMany(
     {
       _id: {
