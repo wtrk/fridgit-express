@@ -10,15 +10,7 @@ const warehousesSchema = new mongoose.Schema(
       type: String,
       max: 150,
     },
-    city_id: {
-      type: String,
-      max: 150,
-    },
-    neighbourhood_id: {
-      type: String,
-      max: 150,
-    },
-    alias_id: {
+    tier_id: {
       type: String,
       max: 150,
     }

@@ -12,6 +12,30 @@ const neighbourhoodsControllers = require('../controllers/neighbourhoodsControll
 const serviceTypesControllers = require('../controllers/serviceTypesControllers')
 const suppliersControllers = require('../controllers/suppliersControllers')
 
+const cityAliasControllers = require('../controllers/cityAliasControllers')
+const neighbourhoodAliasControllers = require('../controllers/neighbourhoodAliasControllers')
+const clientsControllers = require('../controllers/clientsControllers')
+const clientContactsControllers = require('../controllers/clientContactsControllers')
+const clientLegalsControllers = require('../controllers/clientLegalsControllers')
+
+router.get("/clients", clientsControllers.clientsList)
+router.get("/clients/:id", clientsControllers.clientDetails)
+router.post("/clients", clientsControllers.clientAdd)
+router.put("/clients/:id", clientsControllers.clientUpdate)
+router.delete("/clients/:ids", clientsControllers.clientDelete)
+
+router.get("/clientContacts", clientContactsControllers.clientContactsList)
+router.get("/clientContacts/:id", clientContactsControllers.clientContactDetails)
+router.post("/clientContacts", clientContactsControllers.clientContactAdd)
+router.put("/clientContacts/:id", clientContactsControllers.clientContactUpdate)
+router.delete("/clientContacts/:ids", clientContactsControllers.clientContactDelete)
+
+router.get("/clientLegals", clientLegalsControllers.clientLegalsList)
+router.get("/clientLegals/:id", clientLegalsControllers.clientLegalDetails)
+router.post("/clientLegals", clientLegalsControllers.clientLegalAdd)
+router.put("/clientLegals/:id", clientLegalsControllers.clientLegalUpdate)
+router.delete("/clientLegals/:ids", clientLegalsControllers.clientLegalDelete)
+
 //Users Routes
 router.get("/users", usersControllers.usersList)
 router.get("/users/:id", usersControllers.userDetails)
@@ -46,6 +70,12 @@ router.post("/cities", citiesControllers.cityAdd)
 router.put("/cities/:id", citiesControllers.cityUpdate)
 router.delete("/cities/:ids", citiesControllers.cityDelete)
 
+router.get("/cityAlias", cityAliasControllers.cityAliasList)
+router.get("/cityAlias/:id", cityAliasControllers.cityAliasDetails)
+router.post("/cityAlias", cityAliasControllers.cityAliasAdd)
+router.put("/cityAlias/:id", cityAliasControllers.cityAliasUpdate)
+router.delete("/cityAlias/:ids", cityAliasControllers.cityAliasDelete)
+
 router.get("/tiers", tiersControllers.tiersList)
 router.get("/tiers/:id", tiersControllers.tierDetails)
 router.post("/tiers", tiersControllers.tierAdd)
@@ -57,6 +87,12 @@ router.get("/neighbourhoods/:id", neighbourhoodsControllers.neighbourhoodDetails
 router.post("/neighbourhoods", neighbourhoodsControllers.neighbourhoodAdd)
 router.put("/neighbourhoods/:id", neighbourhoodsControllers.neighbourhoodUpdate)
 router.delete("/neighbourhoods/:ids", neighbourhoodsControllers.neighbourhoodDelete)
+
+router.get("/neighbourhoodAlias", neighbourhoodAliasControllers.neighbourhoodAliasList)
+router.get("/neighbourhoodAlias/:id", neighbourhoodAliasControllers.neighbourhoodAliasDetails)
+router.post("/neighbourhoodAlias", neighbourhoodAliasControllers.neighbourhoodAliasAdd)
+router.put("/neighbourhoodAlias/:id", neighbourhoodAliasControllers.neighbourhoodAliasUpdate)
+router.delete("/neighbourhoodAlias/:ids", neighbourhoodAliasControllers.neighbourhoodAliasDelete)
 
 router.get("/serviceTypes", serviceTypesControllers.serviceTypesList)
 router.get("/serviceTypes/:id", serviceTypesControllers.serviceTypeDetails)

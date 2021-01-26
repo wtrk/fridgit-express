@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
  
-const citiesSchema = new mongoose.Schema(
+const cityAliasSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -11,9 +11,14 @@ const citiesSchema = new mongoose.Schema(
       type: String,
       max: 150,
       trim: true,
+    },
+    city_id: {
+      type: String,
+      max: 150,
+      trim: true,
     }
   },
   { timestamps: true }
 );
  
-module.exports = mongoose.model('City', citiesSchema);
+module.exports = mongoose.model('cityAlias', cityAliasSchema);
