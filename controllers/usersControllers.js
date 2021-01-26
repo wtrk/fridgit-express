@@ -59,7 +59,7 @@ exports.userUpdate = async (req,res) => {
         error: err,
       });
     }
-    if (user.length === 0) {
+    if (user===null) {
       return res
         .status(400)
         .json({ error: "User not available in the database" });
