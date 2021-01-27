@@ -1,4 +1,5 @@
 const City = require('../models/cities')
+const CityAlias = require('../models/cityAlias')
 
 exports.cityAdd = async (req,res) => {
   let newCity = await City.insertMany(req.body, function(err, cities) {
@@ -77,4 +78,50 @@ exports.cityDelete = async (req,res) => {
         }
         return res.json({message:"Successfully deleted"})
       })
+}
+
+exports.cityAliasList = async (req,res) => {
+  const cityId=req.params.cityId
+  let cityAlias = await City.findById(cityId,'alias', function(err, cityAlias) {
+    if (err) {
+      return res.status(400).json({
+        error: err
+      });
+    }
+      if(cityAlias.length===0) {
+          return res.status(400).json({error: 'No City Alias for specified city'})
+      }
+      return res.json(cityAlias);
+    
+  });
+}
+exports.cityAliasDelete = async (req,res) => {
+  const cityId = req.params.cityId;
+  const cityAliasName = req.params.cityAliasName;
+  
+  let cityAlias = await City.findByIdAndUpdate(
+    cityId,
+    {
+      $pull: {
+        alias: {
+          name: {
+            $in: cityAliasName.split(","),
+          },
+        },
+      },
+    },
+    function (err, cityAlias) {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      if (cityAlias.n === 0) {
+        return res
+          .status(400)
+          .json({ error: "City Alias not available in the database" });
+      }
+      return res.json({ message: "Successfully deleted" });
+    }
+  );
 }

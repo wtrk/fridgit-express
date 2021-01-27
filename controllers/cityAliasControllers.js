@@ -10,6 +10,27 @@ exports.cityAliasAdd = async (req,res) => {
       return res.json("Successfully added");
   })
 }
+exports.cityAliasDelete = async (req,res) => {
+  let cityAlias = await CityAlias.deleteMany(
+    {
+      _id: {
+        $in: req.params.ids.split(",")
+
+      }
+      }, function(err, cityAlias) {
+        if (err) {
+          return res.status(400).json({
+            error: err,
+          });
+        }
+        if (cityAlias.n === 0) {
+          return res
+            .status(400)
+            .json({ error: "City Alias not available in the database" });
+        }
+        return res.json({message:"Successfully deleted"})
+      })
+}
 exports.cityAliasList = async (req,res) => {
   let cityAlias = await CityAlias.find({}, function(err, cityAlias) {
     if (err) {

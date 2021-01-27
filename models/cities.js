@@ -11,7 +11,8 @@ const citiesSchema = new mongoose.Schema(
       type: String,
       max: 150,
       trim: true,
-    }
+    },
+    alias: [{name: String}]
   },
   { timestamps: true }
 );
