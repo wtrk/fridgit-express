@@ -82,7 +82,7 @@ exports.clientDelete = async (req,res) => {
 exports.clientLegalAdd = async (req,res) => {
   try{
     let newClientLegal =  await Client.findOne({_id: req.params.clientId});
-    newClientLegal.legals.push(...req.body);
+    newClientLegal.legals.push(req.body);
     newClientLegal.save();
     return res.status(200).json("Successfully added");
   }catch (error){
@@ -125,7 +125,7 @@ exports.clientLegalDelete = async (req,res) => {
 exports.clientContactAdd = async (req,res) => {
   try{
     let newClientContact =  await Client.findOne({_id: req.params.clientId});
-    newClientContact.contacts.push(...req.body);
+    newClientContact.contacts.push(req.body);
     newClientContact.save();
     return res.status(200).json("Successfully added");
   }catch (error){
