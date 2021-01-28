@@ -41,7 +41,7 @@ exports.clientDetails = async (req,res) => {
 }
 
 exports.clientUpdate = async (req,res) => {
-  let client = await Client.findByIdAndUpdate(req.param('id'), req.body[0], function(err, client) {
+  let client = await Client.findByIdAndUpdate(req.param('id'), req.body, function(err, client) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -77,4 +77,90 @@ exports.clientDelete = async (req,res) => {
         }
         return res.json({message:"Successfully deleted"})
       })
+}
+
+exports.clientLegalAdd = async (req,res) => {
+  try{
+    let newClientLegal =  await Client.findOne({_id: req.params.clientId});
+    newClientLegal.legals.push(...req.body);
+    newClientLegal.save();
+    return res.status(200).json("Successfully added");
+  }catch (error){
+      return res.status(400).json({
+        error,
+      });
+  }
+}
+
+exports.clientLegalDelete = async (req,res) => {
+  const clientId = req.params.clientId;
+  const clientLegalId = req.params.clientLegalId;
+  
+  let clientLegal = await Client.findByIdAndUpdate(
+    clientId,
+    {
+      $pull: {
+        legals: {
+          _id: {
+            $in: clientLegalId.split(","),
+          },
+        },
+      },
+    },
+    function (err, clientLegal) {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      if (clientLegal.n === 0) {
+        return res
+          .status(400)
+          .json({ error: "client Legal not available in the database" });
+      }
+      return res.json({ message: "Successfully deleted" });
+    }
+  );
+}
+exports.clientContactAdd = async (req,res) => {
+  try{
+    let newClientContact =  await Client.findOne({_id: req.params.clientId});
+    newClientContact.contacts.push(...req.body);
+    newClientContact.save();
+    return res.status(200).json("Successfully added");
+  }catch (error){
+      return res.status(400).json({
+        error,
+      });
+  }
+}
+exports.clientContactDelete = async (req,res) => {
+  const clientId = req.params.clientId;
+  const clientContactId = req.params.clientContactId;
+  
+  let clientContact = await Client.findByIdAndUpdate(
+    clientId,
+    {
+      $pull: {
+        contacts: {
+          _id: {
+            $in: clientContactId.split(","),
+          },
+        },
+      },
+    },
+    function (err, clientContact) {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      if (clientContact.n === 0) {
+        return res
+          .status(400)
+          .json({ error: "client Contact not available in the database" });
+      }
+      return res.json({ message: "Successfully deleted" });
+    }
+  );
 }

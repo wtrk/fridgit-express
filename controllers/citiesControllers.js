@@ -95,6 +95,7 @@ exports.cityAliasList = async (req,res) => {
     
   });
 }
+
 exports.cityAliasDelete = async (req,res) => {
   const cityId = req.params.cityId;
   const cityAliasName = req.params.cityAliasName;
