@@ -28,18 +28,6 @@ router.delete("/clientLegals/:clientId/:clientLegalId", clientsControllers.clien
 router.delete("/clientContacts/:clientId/:clientContactId", clientsControllers.clientContactDelete)
 router.put("/clientContacts/:clientId", clientsControllers.clientContactAdd)
 
-// router.get("/clientContacts", clientContactsControllers.clientContactsList)
-// router.get("/clientContacts/:id", clientContactsControllers.clientContactDetails)
-// router.post("/clientContacts", clientContactsControllers.clientContactAdd)
-// router.put("/clientContacts/:id", clientContactsControllers.clientContactUpdate)
-// router.delete("/clientContacts/:ids", clientContactsControllers.clientContactDelete)
-
-// router.get("/clientLegals", clientLegalsControllers.clientLegalsList)
-// router.get("/clientLegals/:id", clientLegalsControllers.clientLegalDetails)
-// router.post("/clientLegals", clientLegalsControllers.clientLegalAdd)
-// router.put("/clientLegals/:id", clientLegalsControllers.clientLegalUpdate)
-// router.delete("/clientLegals/:ids", clientLegalsControllers.clientLegalDelete)
-
 //Users Routes
 router.get("/users", usersControllers.usersList)
 router.get("/users/:id", usersControllers.userDetails)
@@ -77,12 +65,6 @@ router.delete("/cities/:ids", citiesControllers.cityDelete)
 router.get("/cityAlias/:cityId", citiesControllers.cityAliasList)
 //router.post("/cityAlias/:cityId", citiesControllers.cityAliasAdd)
 router.delete("/cityAlias/:cityId/:cityAliasName", citiesControllers.cityAliasDelete)
-
-router.get("/cityAlias1", cityAliasControllers.cityAliasList)
-router.get("/cityAlias1/:id", cityAliasControllers.cityAliasDetails)
-router.post("/cityAlias1", cityAliasControllers.cityAliasAdd)
-router.put("/cityAlias1/:id", cityAliasControllers.cityAliasUpdate)
-router.delete("/cityAlias1/:ids", cityAliasControllers.cityAliasDelete)
 
 router.get("/tiers", tiersControllers.tiersList)
 router.get("/tiers/:id", tiersControllers.tierDetails)
