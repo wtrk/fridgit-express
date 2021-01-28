@@ -12,11 +12,8 @@ const neighbourhoodsControllers = require('../controllers/neighbourhoodsControll
 const serviceTypesControllers = require('../controllers/serviceTypesControllers')
 const suppliersControllers = require('../controllers/suppliersControllers')
 
-const cityAliasControllers = require('../controllers/cityAliasControllers')
 const neighbourhoodAliasControllers = require('../controllers/neighbourhoodAliasControllers')
 const clientsControllers = require('../controllers/clientsControllers')
-const clientContactsControllers = require('../controllers/clientContactsControllers')
-const clientLegalsControllers = require('../controllers/clientLegalsControllers')
 
 router.get("/clients", clientsControllers.clientsList)
 router.get("/clients/:id", clientsControllers.clientDetails)
