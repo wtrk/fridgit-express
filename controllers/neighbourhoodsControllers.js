@@ -26,6 +26,7 @@ exports.neighbourhoodsList = async (req,res) => {
       return res.json(neighbourhoods);
     
   });
+
 }
 
 exports.neighbourhoodDetails = async (req,res) => {

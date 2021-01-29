@@ -23,7 +23,7 @@ exports.citiesList = async (req,res) => {
       }
       return res.json(cities);
     
-  }).lean();
+  });
 }
 
 exports.cityDetails = async (req,res) => {
