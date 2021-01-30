@@ -13,7 +13,7 @@ exports.tierAdd = async (req,res) => {
 }
 
 exports.tiersList = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+
   let tiers = await Tier.find({}, function(err, tiers) {
     if (err) {
       return res.status(400).json({
@@ -83,4 +83,65 @@ exports.tierDelete = async (req,res) => {
         }
         return res.json({message:"Successfully deleted"})
       })
+}
+
+exports.tierCityList = async (req,res) => {
+  const tierId=req.params.tierId
+  let tierCities = await Tier.findById(tierId,'cities', function(err, tierCities) {
+    if (err) {
+      return res.status(400).json({
+        error: err
+      });
+    }
+      if(!tierCities || tierCities.length===0) {
+          return res.status(400).json({error: 'No City added to the specified tier'})
+      }
+      return res.json(tierCities);
+    
+  });
+}
+
+exports.tierCityAdd = async (req,res) => {
+  try{
+    let newTierCity =  await Tier.findOne({_id: req.params.tierId});
+    newTierCity.cities.push(req.body);
+    newTierCity.save();
+    return res.status(200).json("Successfully added");
+  }catch (error){
+      return res.status(400).json({
+        error,
+      });
+  }
+}
+
+
+exports.tierCityDelete = async (req,res) => {
+  const tierId = req.params.tierId;
+  const tierCitiesName = req.params.tierCitiesName;
+  
+  let tierCities = await City.findByIdAndUpdate(
+    tierId,
+    {
+      $pull: {
+        cities: {
+          name: {
+            $in: tierCitiesName.split(","),
+          },
+        },
+      },
+    },
+    function (err, tierCities) {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      if (tierCities.n === 0) {
+        return res
+          .status(400)
+          .json({ error: "City Alias not available in the database" });
+      }
+      return res.json({ message: "Successfully deleted" });
+    }
+  );
 }

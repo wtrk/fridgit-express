@@ -9,7 +9,8 @@ const tiersSchema = new mongoose.Schema(
     code: {
       type: String,
       max: 150,
-    }
+    },
+    cities: [{name: String}]
   },
   { timestamps: true }
 );

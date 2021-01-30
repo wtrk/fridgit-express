@@ -26,6 +26,13 @@ app.use(bodyParser.json())
 if(process.env.NODE_ENV == 'development'){
     app.use(cors({origin:process.env.CLIENT_URL}))
 }
+app.use(function(req, res, next) {
+    // Disable caching for content files
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+    next();
+});
 
 //middleware
 app.use('/api',routes)

@@ -69,6 +69,10 @@ router.post("/tiers", tiersControllers.tierAdd)
 router.put("/tiers/:id", tiersControllers.tierUpdate)
 router.delete("/tiers/:ids", tiersControllers.tierDelete)
 
+router.get("/tierCity/:tierId", tiersControllers.tierCityList)
+router.delete("/tierCity/:tierId/:tierCityId", tiersControllers.tierCityDelete)
+router.put("/tierCity/:tierId", tiersControllers.tierCityAdd)
+
 router.get("/neighbourhoods", neighbourhoodsControllers.neighbourhoodsList)
 router.get("/neighbourhoods/:id", neighbourhoodsControllers.neighbourhoodDetails)
 router.post("/neighbourhoods", neighbourhoodsControllers.neighbourhoodAdd)
