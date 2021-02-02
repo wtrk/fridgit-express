@@ -44,6 +44,12 @@ router.post("/userProfile", userProfilesControllers.userProfileAdd)
 router.put("/userProfile/:id", userProfilesControllers.userProfileUpdate)
 router.delete("/userProfile/:ids", userProfilesControllers.userProfileDelete)
 
+router.get("/userProfile/privilege/:userProfileId", userProfilesControllers.userProfilePrivilegeList)
+router.post("/userProfile/privilege/:userProfileId", userProfilesControllers.userProfilePrivilegeAdd)
+router.put("/userProfile/privilege/:userProfileId/:pageId", userProfilesControllers.userProfilePrivilegeUpdate)
+router.delete("/userProfile/privilege/:userProfileId/:pageId", userProfilesControllers.userProfilePrivilegeDelete)
+
+
 router.get("/warehouses", warehousesControllers.warehousesList)
 router.get("/warehouses/:id", warehousesControllers.warehouseDetails)
 router.post("/warehouses", warehousesControllers.warehouseAdd)

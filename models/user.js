@@ -79,6 +79,11 @@ const userSchema = new mongoose.Schema(
       max: 1,
       default: 0,
     },
+    client_id: {
+      type: String,
+      max: 150,
+      trim: true,
+    },
   },
   { timestamps: true }
 );
