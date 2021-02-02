@@ -11,6 +11,7 @@ const tiersControllers = require('../controllers/tiersControllers')
 const neighbourhoodsControllers = require('../controllers/neighbourhoodsControllers')
 const serviceTypesControllers = require('../controllers/serviceTypesControllers')
 const suppliersControllers = require('../controllers/suppliersControllers')
+const storesControllers = require('../controllers/storesControllers')
 
 const neighbourhoodAliasControllers = require('../controllers/neighbourhoodAliasControllers')
 const clientsControllers = require('../controllers/clientsControllers')
@@ -28,12 +29,14 @@ router.put("/clientContacts/:clientId", clientsControllers.clientContactAdd)
 //Users Routes
 router.get("/users", usersControllers.usersList)
 router.get("/users/:id", usersControllers.userDetails)
+router.get("/users/type/:typeId", usersControllers.userTypeDetails)
 router.post("/users", usersControllers.userAdd)
 router.put("/users/:id", usersControllers.userUpdate)
 router.delete("/users/:ids", usersControllers.userDelete)
 
 router.get("/userType", userTypesControllers.userTypesList)
 router.post("/userType", userTypesControllers.userTypeAdd)
+router.delete("/userType/:ids", userTypesControllers.userTypeDelete)
 
 router.get("/userProfile", userProfilesControllers.userProfilesList)
 router.get("/userProfile/:id", userProfilesControllers.userProfileDetails)
@@ -96,5 +99,11 @@ router.get("/suppliers/:id", suppliersControllers.supplierDetails)
 router.post("/suppliers", suppliersControllers.supplierAdd)
 router.put("/suppliers/:id", suppliersControllers.supplierUpdate)
 router.delete("/suppliers/:ids", suppliersControllers.supplierDelete)
+
+router.get("/stores", storesControllers.storesList)
+router.get("/stores/:id", storesControllers.storeDetails)
+router.post("/stores", storesControllers.storeAdd)
+router.put("/stores/:id", storesControllers.storeUpdate)
+router.delete("/stores/:ids", storesControllers.storeDelete)
 
 module.exports = router

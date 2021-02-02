@@ -1,14 +1,15 @@
 const Tier = require('../models/tiers')
 
 exports.tierAdd = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  
   let newTier = await Tier.insertMany(req.body, function(err, tiers) {
     if (err) {
       return res.status(400).json({
         error: err,
       });
     }
-      return res.json("Successfully added");
+
+      return res.json({message:"Successfully added",id:tiers[0]._id});
   })
 }
 

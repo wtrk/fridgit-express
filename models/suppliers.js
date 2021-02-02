@@ -14,6 +14,10 @@ const suppliersSchema = new mongoose.Schema(
       type: String,
       max: 150,
     },
+    user_id: {
+      type: String,
+      max: 150,
+    },
   },
   { timestamps: true }
 );
