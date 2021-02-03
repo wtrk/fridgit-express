@@ -22,10 +22,10 @@ const routes = require('./routes/routes')
 //app middleware
 app.use(morgan('dev'))
 app.use(bodyParser.json())
-//app.use(cors()) //allows all origins
-if(process.env.NODE_ENV == 'development'){
-    app.use(cors({origin:process.env.CLIENT_URL}))
-}
+app.use(cors()) //allows all origins
+// if(process.env.NODE_ENV == 'development'){
+//     app.use(cors({origin:process.env.CLIENT_URL}))
+// }
 app.use(function(req, res, next) {
     // Disable caching for content files
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
