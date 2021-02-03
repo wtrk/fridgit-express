@@ -5,6 +5,7 @@ const usersControllers = require('../controllers/usersControllers')
 const userTypesControllers = require('../controllers/userTypesControllers')
 const userProfilesControllers = require('../controllers/userProfilesControllers')
 const warehousesControllers = require('../controllers/warehousesControllers')
+const allocationRulesControllers = require('../controllers/allocationRulesControllers')
 const countriesControllers = require('../controllers/countriesControllers')
 const citiesControllers = require('../controllers/citiesControllers')
 const tiersControllers = require('../controllers/tiersControllers')
@@ -12,6 +13,8 @@ const neighbourhoodsControllers = require('../controllers/neighbourhoodsControll
 const serviceTypesControllers = require('../controllers/serviceTypesControllers')
 const suppliersControllers = require('../controllers/suppliersControllers')
 const storesControllers = require('../controllers/storesControllers')
+const cabinetsControllers = require('../controllers/cabinetsControllers')
+const priceRulesControllers = require('../controllers/priceRulesControllers')
 
 const neighbourhoodAliasControllers = require('../controllers/neighbourhoodAliasControllers')
 const clientsControllers = require('../controllers/clientsControllers')
@@ -55,6 +58,21 @@ router.get("/warehouses/:id", warehousesControllers.warehouseDetails)
 router.post("/warehouses", warehousesControllers.warehouseAdd)
 router.put("/warehouses/:id", warehousesControllers.warehouseUpdate)
 router.delete("/warehouses/:ids", warehousesControllers.warehouseDelete)
+
+router.get("/allocationRules", allocationRulesControllers.allocationRulesList)
+router.get("/allocationRules/:id", allocationRulesControllers.allocationRuleDetails)
+router.post("/allocationRules", allocationRulesControllers.allocationRuleAdd)
+router.put("/allocationRules/:id", allocationRulesControllers.allocationRuleUpdate)
+router.delete("/allocationRules/:ids", allocationRulesControllers.allocationRuleDelete)
+
+router.get("/allocationRulesCities/:allocationRuleId", allocationRulesControllers.allocationRuleCitiesList)
+router.delete("/allocationRulesCities/:allocationRuleId/:allocationRuleCitiesId", allocationRulesControllers.allocationRuleCitiesDelete)
+router.get("/allocationRulesNeighbourhoods/:allocationRuleId", allocationRulesControllers.allocationRuleNeighbourhoodsList)
+router.delete("/allocationRulesNeighbourhoods/:allocationRuleId/:allocationRuleNeighbourhoodsId", allocationRulesControllers.allocationRuleNeighbourhoodsDelete)
+router.get("/allocationRulesCustomers/:allocationRuleId", allocationRulesControllers.allocationRuleCustomersList)
+router.delete("/allocationRulesCustomers/:allocationRuleId/:allocationRuleCustomersId", allocationRulesControllers.allocationRuleCustomersDelete)
+router.get("/allocationRulesOperations/:allocationRuleId", allocationRulesControllers.allocationRuleOperationsList)
+router.delete("/allocationRulesOperations/:allocationRuleId/:allocationRuleOperationsId", allocationRulesControllers.allocationRuleOperationsDelete)
 
 router.get("/countries", countriesControllers.countriesList)
 router.get("/countries/:id", countriesControllers.countryDetails)
@@ -111,5 +129,41 @@ router.get("/stores/:id", storesControllers.storeDetails)
 router.post("/stores", storesControllers.storeAdd)
 router.put("/stores/:id", storesControllers.storeUpdate)
 router.delete("/stores/:ids", storesControllers.storeDelete)
+
+router.get("/cabinets", cabinetsControllers.cabinetsList)
+router.get("/cabinets/:id", cabinetsControllers.cabinetDetails)
+router.post("/cabinets", cabinetsControllers.cabinetAdd)
+router.put("/cabinets/:id", cabinetsControllers.cabinetUpdate)
+router.delete("/cabinets/:ids", cabinetsControllers.cabinetDelete)
+
+router.get("/priceRules", priceRulesControllers.priceRulesList)
+router.get("/priceRules/:id", priceRulesControllers.priceRuleDetails)
+router.post("/priceRules", priceRulesControllers.priceRuleAdd)
+router.put("/priceRules/:id", priceRulesControllers.priceRuleUpdate)
+router.delete("/priceRules/:ids", priceRulesControllers.priceRuleDelete)
+
+router.get("/priceRulesCustomers/:priceRuleId", priceRulesControllers.priceRuleCustomersList)
+router.delete("/priceRulesCustomers/:priceRuleId/:priceRulesCustomersId", priceRulesControllers.priceRuleCustomersDelete)
+
+router.get("/priceRulesCountries/:priceRuleId", priceRulesControllers.priceRuleCountriesList)
+router.delete("/priceRulesCountries/:priceRuleId/:priceRulesCountriesId", priceRulesControllers.priceRuleCountriesDelete)
+
+router.get("/priceRulesCitiesIn/:priceRuleId", priceRulesControllers.priceRuleCitiesInList)
+router.delete("/priceRulesCitiesIn/:priceRuleId/:priceRulesCitiesInId", priceRulesControllers.priceRuleCitiesInDelete)
+
+router.get("/priceRulesCitiesOut/:priceRuleId", priceRulesControllers.priceRuleCitiesOutList)
+router.delete("/priceRulesCitiesOut/:priceRuleId/:priceRulesCitiesOutId", priceRulesControllers.priceRuleCitiesOutDelete)
+
+router.get("/priceRulesNeighbourhoodsIn/:priceRuleId", priceRulesControllers.priceRuleNeighbourhoodsInList)
+router.delete("/priceRulesNeighbourhoodsIn/:priceRuleId/:priceRulesNeighbourhoodsInId", priceRulesControllers.priceRuleNeighbourhoodsInDelete)
+
+router.get("/priceRulesNeighbourhoodsOut/:priceRuleId", priceRulesControllers.priceRuleNeighbourhoodsOutList)
+router.delete("/priceRulesNeighbourhoodsOut/:priceRuleId/:priceRulesNeighbourhoodsOutId", priceRulesControllers.priceRuleNeighbourhoodsOutDelete)
+
+router.get("/priceRulesTiersIn/:priceRuleId", priceRulesControllers.priceRuleTiersInList)
+router.delete("/priceRulesTiersIn/:priceRuleId/:priceRulesTiersInId", priceRulesControllers.priceRuleTiersInDelete)
+
+router.get("/priceRulesTiersOut/:priceRuleId", priceRulesControllers.priceRuleTiersOutList)
+router.delete("/priceRulesTiersOut/:priceRuleId/:priceRulesTiersOutId", priceRulesControllers.priceRuleTiersOutDelete)
 
 module.exports = router
