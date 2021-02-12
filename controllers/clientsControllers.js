@@ -1,5 +1,12 @@
 const Client = require('../models/clients')
 
+exports.clientsRenameCompanyToName = async (req,res) => {
+  Client.updateMany({}, { $rename: { company: 'name' } }, { multi: true }, function(err, blocks) {
+    if(err) { throw err; }
+    console.log('done!');
+});
+  
+}
 exports.clientAdd = async (req,res) => {
   let newClient = await Client.insertMany(req.body, function(err, clients) {
     if (err) {

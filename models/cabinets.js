@@ -4,7 +4,6 @@ const cabinetsSchema = new mongoose.Schema(
   {
     sn:String,
     type: String,
-    manufacture: String,
     client: String,
     days_to_prev: String,
     prev_status: String,

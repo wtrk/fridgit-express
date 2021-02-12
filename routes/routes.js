@@ -15,6 +15,8 @@ const suppliersControllers = require('../controllers/suppliersControllers')
 const storesControllers = require('../controllers/storesControllers')
 const cabinetsControllers = require('../controllers/cabinetsControllers')
 const priceRulesControllers = require('../controllers/priceRulesControllers')
+const fridgesTypesControllers = require('../controllers/fridgesTypesControllers')
+const liveOperationsControllers = require('../controllers/liveOperationsControllers')
 
 const neighbourhoodAliasControllers = require('../controllers/neighbourhoodAliasControllers')
 const clientsControllers = require('../controllers/clientsControllers')
@@ -28,6 +30,8 @@ router.put("/clientLegals/:clientId", clientsControllers.clientLegalAdd)
 router.delete("/clientLegals/:clientId/:clientLegalId", clientsControllers.clientLegalDelete)
 router.delete("/clientContacts/:clientId/:clientContactId", clientsControllers.clientContactDelete)
 router.put("/clientContacts/:clientId", clientsControllers.clientContactAdd)
+
+router.get("/clientsRenameCompanyToName", clientsControllers.clientsRenameCompanyToName)
 
 //Users Routes
 router.get("/users", usersControllers.usersList)
@@ -144,26 +148,31 @@ router.delete("/priceRules/:ids", priceRulesControllers.priceRuleDelete)
 
 router.get("/priceRulesCustomers/:priceRuleId", priceRulesControllers.priceRuleCustomersList)
 router.delete("/priceRulesCustomers/:priceRuleId/:priceRulesCustomersId", priceRulesControllers.priceRuleCustomersDelete)
-
 router.get("/priceRulesCountries/:priceRuleId", priceRulesControllers.priceRuleCountriesList)
 router.delete("/priceRulesCountries/:priceRuleId/:priceRulesCountriesId", priceRulesControllers.priceRuleCountriesDelete)
-
 router.get("/priceRulesCitiesIn/:priceRuleId", priceRulesControllers.priceRuleCitiesInList)
 router.delete("/priceRulesCitiesIn/:priceRuleId/:priceRulesCitiesInId", priceRulesControllers.priceRuleCitiesInDelete)
-
 router.get("/priceRulesCitiesOut/:priceRuleId", priceRulesControllers.priceRuleCitiesOutList)
 router.delete("/priceRulesCitiesOut/:priceRuleId/:priceRulesCitiesOutId", priceRulesControllers.priceRuleCitiesOutDelete)
-
 router.get("/priceRulesNeighbourhoodsIn/:priceRuleId", priceRulesControllers.priceRuleNeighbourhoodsInList)
 router.delete("/priceRulesNeighbourhoodsIn/:priceRuleId/:priceRulesNeighbourhoodsInId", priceRulesControllers.priceRuleNeighbourhoodsInDelete)
-
 router.get("/priceRulesNeighbourhoodsOut/:priceRuleId", priceRulesControllers.priceRuleNeighbourhoodsOutList)
 router.delete("/priceRulesNeighbourhoodsOut/:priceRuleId/:priceRulesNeighbourhoodsOutId", priceRulesControllers.priceRuleNeighbourhoodsOutDelete)
-
 router.get("/priceRulesTiersIn/:priceRuleId", priceRulesControllers.priceRuleTiersInList)
 router.delete("/priceRulesTiersIn/:priceRuleId/:priceRulesTiersInId", priceRulesControllers.priceRuleTiersInDelete)
-
 router.get("/priceRulesTiersOut/:priceRuleId", priceRulesControllers.priceRuleTiersOutList)
 router.delete("/priceRulesTiersOut/:priceRuleId/:priceRulesTiersOutId", priceRulesControllers.priceRuleTiersOutDelete)
+
+router.get("/fridgesTypes", fridgesTypesControllers.fridgesTypesList)
+router.get("/fridgesTypes/:id", fridgesTypesControllers.fridgesTypeDetails)
+router.post("/fridgesTypes", fridgesTypesControllers.fridgesTypeAdd)
+router.put("/fridgesTypes/:id", fridgesTypesControllers.fridgesTypeUpdate)
+router.delete("/fridgesTypes/:ids", fridgesTypesControllers.fridgesTypeDelete)
+
+router.get("/liveOperations", liveOperationsControllers.liveOperationsList)
+router.get("/liveOperations/:id", liveOperationsControllers.liveOperationDetails)
+router.post("/liveOperations", liveOperationsControllers.liveOperationAdd)
+router.put("/liveOperations/:id", liveOperationsControllers.liveOperationUpdate)
+router.delete("/liveOperations/:ids", liveOperationsControllers.liveOperationDelete)
 
 module.exports = router

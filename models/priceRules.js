@@ -17,7 +17,7 @@ const priceRuleSchema = new mongoose.Schema(
     preventive_maintenance: Number,
     exchange_corrective_reaction: Number,
     corrective_reaction: Number,
-    customers: [{name: String}],
+    clients: [{name: String}],
     countries: [{name: String}],
     citiesIn: [{name: String}],
     citiesOut: [{name: String}],
@@ -30,3 +30,4 @@ const priceRuleSchema = new mongoose.Schema(
 );
  
 module.exports = mongoose.model('PriceRule', priceRuleSchema);
+

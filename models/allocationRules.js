@@ -16,7 +16,7 @@ const allocationRulesSchema = new mongoose.Schema(
     },
     cities: [{name: String}],
     neighbourhoods: [{name: String}],
-    customers: [{name: String}],
+    clients: [{name: String}],
     operations: [{name: String}]
   },
   { timestamps: true }
