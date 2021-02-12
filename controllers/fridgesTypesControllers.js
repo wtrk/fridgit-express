@@ -15,7 +15,7 @@ exports.fridgesTypeAdd = async (req,res) => {
 
 exports.fridgesTypesList = async (req,res) => {
 
-  let fridgesTypes = await FridgesType.find({}, function(err, fridgesTypes) {
+  let fridgesTypes = await FridgesType.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, fridgesTypes) {
     if (err) {
       return res.status(400).json({
         error: err,

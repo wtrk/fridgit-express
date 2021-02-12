@@ -15,7 +15,7 @@ exports.tierAdd = async (req,res) => {
 
 exports.tiersList = async (req,res) => {
 
-  let tiers = await Tier.find({}, function(err, tiers) {
+  let tiers = await Tier.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, tiers) {
     if (err) {
       return res.status(400).json({
         error: err,

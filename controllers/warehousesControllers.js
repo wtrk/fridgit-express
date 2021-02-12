@@ -15,7 +15,7 @@ exports.warehouseAdd = async (req,res) => {
 
 exports.warehousesList = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let warehouses = await Warehouse.find({}, function(err, warehouses) {
+  let warehouses = await Warehouse.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, warehouses) {
     if (err) {
       return res.status(400).json({
         error: err,

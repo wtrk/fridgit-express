@@ -2,14 +2,9 @@ const mongoose = require('mongoose');
  
 const neighbourhoodsSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      max: 150,
-    },
-    code: {
-      type: String,
-      max: 150,
-    },
+    name: {type: String},
+    code: {type: String},
+    city_id: {type: String},
     alias: [{name: String}]
   },
   { timestamps: true }

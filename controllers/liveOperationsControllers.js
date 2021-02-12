@@ -12,7 +12,7 @@ exports.liveOperationAdd = async (req,res) => {
 }
 
 exports.liveOperationsList = async (req,res) => {
-  let liveOperations = await LiveOperation.find({}, function(err, liveOperations) {
+  let liveOperations = await LiveOperation.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, liveOperations) {
     if (err) {
       return res.status(400).json({
         error: err,

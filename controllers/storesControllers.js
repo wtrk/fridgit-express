@@ -12,7 +12,7 @@ exports.storeAdd = async (req,res) => {
 }
 
 exports.storesList = async (req,res) => {
-  let stores = await Store.find({}, function(err, stores) {
+  let stores = await Store.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, stores) {
     if (err) {
       return res.status(400).json({
         error: err,

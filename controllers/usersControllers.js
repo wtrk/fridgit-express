@@ -22,7 +22,7 @@ exports.userAdd = (req,res) => {
 }
 
 exports.usersList = async (req,res) => {
-  let users = await User.find({}, function(err, users) {
+  let users = await User.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, users) {
     if (err) {
       return res.status(400).json({
         error: err,

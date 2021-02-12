@@ -1,5 +1,4 @@
 const City = require('../models/cities')
-const CityAlias = require('../models/cityAlias')
 
 exports.cityAdd = async (req,res) => {
   let newCity = await City.insertMany(req.body, function(err, cities) {
@@ -12,16 +11,13 @@ exports.cityAdd = async (req,res) => {
   })
 }
 exports.citiesList = async (req,res) => {
-  let cities = await City.find({}, "_id name code", function(err, cities) {
+  let cities = await City.find({}, "_id name code", {sort: { 'updatedAt' : -1 }},  function(err, cities) {
     if (err) {
       return res.status(400).json({
         error: err,
       });
     }
-      if(cities.length===0) {
-          return res.status(400).json({error: 'No cities in the database'})
-      }
-      return res.json(cities);
+    return res.json(cities);
     
   });
 }
@@ -88,10 +84,7 @@ exports.cityAliasList = async (req,res) => {
         error: err
       });
     }
-      if(cityAlias.length===0) {
-          return res.status(400).json({error: 'No City Alias for specified city'})
-      }
-      return res.json(cityAlias);
+    return res.json(cityAlias);
     
   });
 }

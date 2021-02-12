@@ -14,7 +14,7 @@ exports.supplierAdd = async (req,res) => {
 
 exports.suppliersList = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let suppliers = await Supplier.find({}, function(err, suppliers) {
+  let suppliers = await Supplier.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, suppliers) {
     if (err) {
       return res.status(400).json({
         error: err,

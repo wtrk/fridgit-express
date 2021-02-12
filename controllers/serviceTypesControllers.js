@@ -13,7 +13,7 @@ exports.serviceTypeAdd = async (req,res) => {
 }
 
 exports.serviceTypesList = async (req,res) => {
-  let serviceTypes = await ServiceType.find({}, function(err, serviceTypes) {
+  let serviceTypes = await ServiceType.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, serviceTypes) {
     if (err) {
       return res.status(400).json({
         error: err,

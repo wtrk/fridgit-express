@@ -89,7 +89,6 @@ router.get("/cities/:id", citiesControllers.cityDetails)
 router.post("/cities", citiesControllers.cityAdd)
 router.put("/cities/:id", citiesControllers.cityUpdate)
 router.delete("/cities/:ids", citiesControllers.cityDelete)
-
 router.get("/cityAlias/:cityId", citiesControllers.cityAliasList)
 //router.post("/cityAlias/:cityId", citiesControllers.cityAliasAdd)
 router.delete("/cityAlias/:cityId/:cityAliasName", citiesControllers.cityAliasDelete)
@@ -109,12 +108,10 @@ router.get("/neighbourhoods/:id", neighbourhoodsControllers.neighbourhoodDetails
 router.post("/neighbourhoods", neighbourhoodsControllers.neighbourhoodAdd)
 router.put("/neighbourhoods/:id", neighbourhoodsControllers.neighbourhoodUpdate)
 router.delete("/neighbourhoods/:ids", neighbourhoodsControllers.neighbourhoodDelete)
+router.get("/neighbourhoodAlias/:neighbourhoodId", neighbourhoodsControllers.neighbourhoodAliasList)
+//router.post("/neighbourhoodAlias/:neighbourhoodId", citiesControllers.neighbourhoodAliasAdd)
+router.delete("/neighbourhoodAlias/:neighbourhoodId/:neighbourhoodAliasId", neighbourhoodsControllers.neighbourhoodAliasDelete)
 
-router.get("/neighbourhoodAlias", neighbourhoodAliasControllers.neighbourhoodAliasList)
-router.get("/neighbourhoodAlias/:id", neighbourhoodAliasControllers.neighbourhoodAliasDetails)
-router.post("/neighbourhoodAlias", neighbourhoodAliasControllers.neighbourhoodAliasAdd)
-router.put("/neighbourhoodAlias/:id", neighbourhoodAliasControllers.neighbourhoodAliasUpdate)
-router.delete("/neighbourhoodAlias/:ids", neighbourhoodAliasControllers.neighbourhoodAliasDelete)
 
 router.get("/serviceTypes", serviceTypesControllers.serviceTypesList)
 router.get("/serviceTypes/:id", serviceTypesControllers.serviceTypeDetails)

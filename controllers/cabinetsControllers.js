@@ -12,7 +12,7 @@ exports.cabinetAdd = async (req,res) => {
 }
 
 exports.cabinetsList = async (req,res) => {
-  let cabinets = await Cabinet.find({}, function(err, cabinets) {
+  let cabinets = await Cabinet.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, cabinets) {
     if (err) {
       return res.status(400).json({
         error: err,

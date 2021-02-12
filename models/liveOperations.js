@@ -8,16 +8,15 @@ const liveOperationsSchema = new mongoose.Schema(
     sn: { type: String },
     brand: { type: String },
     client_id: { type: String },
-    client_name: { type: String },
     initiation_address: {
       city_id: { type: String },
-      area: { type: String },
+      neighbourhood_id: { type: String },
       shop_name: { type: String },
       mobile: { type: String },
     },
     execution_address: {
       city_id: { type: String },
-      area: { type: String },
+      neighbourhood_id: { type: String },
       shop_name: { type: String },
       mobile: { type: String },
     },

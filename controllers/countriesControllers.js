@@ -14,7 +14,7 @@ exports.countryAdd = async (req,res) => {
 
 exports.countriesList = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let countries = await Country.find({}, function(err, countries) {
+  let countries = await Country.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, countries) {
     if (err) {
       return res.status(400).json({
         error: err,

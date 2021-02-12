@@ -14,7 +14,7 @@ exports.userTypeAdd = async (req,res) => {
   })
 }
 exports.userTypesList = async (req,response) => {
-  let userTypes = await UserType.find({}, function(err, userTypes) {
+  let userTypes = await UserType.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, userTypes) {
     if (err) {
       return response.status(400).json({
         error: err,

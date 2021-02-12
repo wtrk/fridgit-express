@@ -11,7 +11,7 @@ exports.neighbourhoodAliasAdd = async (req,res) => {
   })
 }
 exports.neighbourhoodAliasList = async (req,res) => {
-  let neighbourhoodAlias = await NeighbourhoodAlias.find({}, function(err, neighbourhoodAlias) {
+  let neighbourhoodAlias = await NeighbourhoodAlias.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, neighbourhoodAlias) {
     if (err) {
       return res.status(400).json({
         error: err,

@@ -13,7 +13,7 @@ exports.priceRuleAdd = async (req,res) => {
 
 exports.priceRulesList = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let priceRules = await PriceRule.find({}, function(err, priceRules) {
+  let priceRules = await PriceRule.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, priceRules) {
     if (err) {
       return res.status(400).json({
         error: err,

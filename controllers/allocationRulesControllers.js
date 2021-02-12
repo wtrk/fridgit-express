@@ -14,8 +14,7 @@ exports.allocationRuleAdd = async (req,res) => {
 }
 
 exports.allocationRulesList = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  let allocationRules = await AllocationRule.find({}, function(err, allocationRules) {
+  let allocationRules = await AllocationRule.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, allocationRules) {
     if (err) {
       return res.status(400).json({
         error: err,

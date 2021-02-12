@@ -1,7 +1,7 @@
 const Neighbourhood = require('../models/neighbourhoods')
+const NeighbourhoodAlias = require('../models/neighbourhoodAlias')
 
 exports.neighbourhoodAdd = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let newNeighbourhood = await Neighbourhood.insertMany(req.body, function(err, neighbourhoods) {
     if (err) {
       return res.status(400).json({
@@ -11,26 +11,19 @@ exports.neighbourhoodAdd = async (req,res) => {
       return res.json("Successfully added");
   })
 }
-
 exports.neighbourhoodsList = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  let neighbourhoods = await Neighbourhood.find({}, function(err, neighbourhoods) {
+  let neighbourhoods = await Neighbourhood.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, neighbourhoods) {
     if (err) {
       return res.status(400).json({
         error: err,
       });
     }
-      if(neighbourhoods.length===0) {
-          return res.status(400).json({error: 'No neighbourhoods in the database'})
-      }
-      return res.json(neighbourhoods);
+    return res.json(neighbourhoods);
     
   });
-
 }
 
 exports.neighbourhoodDetails = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let neighbourhood = await Neighbourhood.findById(req.param('id'), function(err, neighbourhood) {
     if (err) {
       return res.status(400).json({
@@ -46,7 +39,6 @@ exports.neighbourhoodDetails = async (req,res) => {
 }
 
 exports.neighbourhoodUpdate = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let neighbourhood = await Neighbourhood.findByIdAndUpdate(req.param('id'), req.body[0], function(err, neighbourhood) {
     if (err) {
       return res.status(400).json({
@@ -64,7 +56,6 @@ exports.neighbourhoodUpdate = async (req,res) => {
 }
 
 exports.neighbourhoodDelete = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let neighbourhood = await Neighbourhood.deleteMany(
     {
       _id: {
@@ -84,4 +75,48 @@ exports.neighbourhoodDelete = async (req,res) => {
         }
         return res.json({message:"Successfully deleted"})
       })
+}
+
+exports.neighbourhoodAliasList = async (req,res) => {
+  const neighbourhoodId=req.params.neighbourhoodId
+  let neighbourhoodAlias = await Neighbourhood.findById(neighbourhoodId,'alias', function(err, neighbourhoodAlias) {
+    if (err) {
+      return res.status(400).json({
+        error: err
+      });
+    }
+    return res.json(neighbourhoodAlias);
+    
+  });
+}
+
+exports.neighbourhoodAliasDelete = async (req,res) => {
+  const neighbourhoodId = req.params.neighbourhoodId;
+  const neighbourhoodAliasId = req.params.neighbourhoodAliasId;
+  
+  let neighbourhoodAlias = await Neighbourhood.findByIdAndUpdate(
+    neighbourhoodId,
+    {
+      $pull: {
+        alias: {
+          id: {
+            $in: neighbourhoodAliasId.split(","),
+          },
+        },
+      },
+    },
+    function (err, neighbourhoodAlias) {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      if (neighbourhoodAlias.n === 0) {
+        return res
+          .status(400)
+          .json({ error: "Neighbourhood Alias not available in the database" });
+      }
+      return res.json({ message: "Successfully deleted" });
+    }
+  );
 }

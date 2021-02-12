@@ -10,10 +10,14 @@ const cabinetsSchema = new mongoose.Schema(
     finance: Number,
     location:{
       city_id: String,
+      neighbourhood_id: String,
       area: String,
       mobile: String,
     },
-    status: String,
+    status: {
+      type: String,
+      default: 'Needs Repair'
+    },
     is_new: Boolean,
     booked: Boolean
   },
