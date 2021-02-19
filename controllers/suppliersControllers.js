@@ -1,7 +1,6 @@
 const Supplier = require('../models/suppliers')
 
 exports.supplierAdd = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let newSupplier = await Supplier.insertMany(req.body, function(err, suppliers) {
     if (err) {
       return res.status(400).json({
@@ -13,7 +12,6 @@ exports.supplierAdd = async (req,res) => {
 }
 
 exports.suppliersList = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let suppliers = await Supplier.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, suppliers) {
     if (err) {
       return res.status(400).json({
@@ -29,7 +27,6 @@ exports.suppliersList = async (req,res) => {
 }
 
 exports.supplierDetails = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let supplier = await Supplier.findById(req.param('id'), function(err, supplier) {
     if (err) {
       return res.status(400).json({
@@ -45,7 +42,6 @@ exports.supplierDetails = async (req,res) => {
 }
 
 exports.supplierUpdate = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let supplier = await Supplier.findByIdAndUpdate(req.param('id'), req.body[0], function(err, supplier) {
     if (err) {
       return res.status(400).json({
@@ -63,13 +59,8 @@ exports.supplierUpdate = async (req,res) => {
 }
 
 exports.supplierDelete = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let supplier = await Supplier.deleteMany(
     {
-      _id: {
-        $in: req.params.ids.split(",")
-
-      }
       }, function(err, supplier) {
         if (err) {
           return res.status(400).json({

@@ -72,10 +72,6 @@ exports.userUpdate = async (req,res) => {
 exports.userDelete = async (req,res) => {
   let user = await User.deleteMany(
     {
-      _id: {
-        $in: req.params.ids.split(",")
-
-      }
       }, function(err, user) {
         if (err) {
           return res.status(400).json({

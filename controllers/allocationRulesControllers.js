@@ -63,10 +63,6 @@ exports.allocationRuleDelete = async (req,res) => {
   
   let allocationRule = await AllocationRule.deleteMany(
     {
-      _id: {
-        $in: req.params.ids.split(",")
-
-      }
       }, function(err, allocationRule) {
         if (err) {
           return res.status(400).json({

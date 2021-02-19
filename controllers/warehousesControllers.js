@@ -66,12 +66,7 @@ exports.warehouseUpdate = async (req,res) => {
 exports.warehouseDelete = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let warehouse = await Warehouse.deleteMany(
-    {
-      _id: {
-        $in: req.params.ids.split(",")
-
-      }
-      }, function(err, warehouse) {
+    {}, function(err, warehouse) {
         if (err) {
           return res.status(400).json({
             error: err,

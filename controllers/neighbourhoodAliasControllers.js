@@ -60,10 +60,6 @@ exports.neighbourhoodAliasUpdate = async (req,res) => {
 exports.neighbourhoodAliasDelete = async (req,res) => {
   let neighbourhoodAlias = await NeighbourhoodAlias.deleteMany(
     {
-      _id: {
-        $in: req.params.ids.split(",")
-
-      }
       }, function(err, neighbourhoodAlias) {
         if (err) {
           return res.status(400).json({

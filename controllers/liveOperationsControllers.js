@@ -70,9 +70,7 @@ exports.liveOperationUpdate = async (req,res) => {
 
 exports.liveOperationDelete = async (req,res) => {
   let liveOperation = await LiveOperation.deleteMany(
-    {
-      _id: {$in: req.params.ids.split(",")}
-      }, function(err, liveOperation) {
+    {}, function(err, liveOperation) {
         if (err) {
           return res.status(400).json({
             error: err,
