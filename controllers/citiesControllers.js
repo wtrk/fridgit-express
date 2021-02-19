@@ -11,7 +11,7 @@ exports.cityAdd = async (req,res) => {
   })
 }
 exports.citiesList = async (req,res) => {
-  let cities = await City.find({}, "_id name code", {sort: { 'updatedAt' : -1 }},  function(err, cities) {
+  let cities = await City.find({}, "_id name code", {sort: { 'name' : 1 }},  function(err, cities) {
     if (err) {
       return res.status(400).json({
         error: err,

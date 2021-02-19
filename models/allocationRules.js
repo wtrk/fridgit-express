@@ -2,18 +2,13 @@ const mongoose = require('mongoose');
  
 const allocationRulesSchema = new mongoose.Schema(
   {
-    code: {
-      type: String,
-      max: 150,
+    priority: {
+      type: Number,
+      default: 1,
     },
-    name: {
-      type: String,
-      max: 150,
-    },
-    supplier_id: {
-      type: String,
-      max: 150,
-    },
+    code: String,
+    name: String,
+    supplier_id: String,
     cities: [{name: String}],
     neighbourhoods: [{name: String}],
     clients: [{name: String}],

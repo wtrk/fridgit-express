@@ -10,10 +10,8 @@ exports.priceRuleAdd = async (req,res) => {
       return res.json("Successfully added");
   })
 }
-
 exports.priceRulesList = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  let priceRules = await PriceRule.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, priceRules) {
+  let priceRules = await PriceRule.find({}, null, {sort: { 'priority' : 1,'updatedAt' : -1 }}, function(err, priceRules) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -26,7 +24,6 @@ exports.priceRulesList = async (req,res) => {
     
   });
 }
-
 exports.priceRuleDetails = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let priceRule = await PriceRule.findById(req.param('id'), function(err, priceRule) {
@@ -42,7 +39,6 @@ exports.priceRuleDetails = async (req,res) => {
     return res.json(priceRule);
   });
 }
-
 exports.priceRuleUpdate = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let priceRule = await PriceRule.findByIdAndUpdate(req.param('id'), req.body[0], function(err, priceRule) {
@@ -60,7 +56,6 @@ exports.priceRuleUpdate = async (req,res) => {
   });
   
 }
-
 exports.priceRuleDelete = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let priceRule = await PriceRule.deleteMany(
@@ -82,6 +77,54 @@ exports.priceRuleDelete = async (req,res) => {
         }
         return res.json({message:"Successfully deleted"})
       })
+}
+
+
+exports.priceRuleFromCityIn = async (req,res) => {
+  const cityName = req.params.cityName;
+  let priceRule = await PriceRule.find({ citiesIn: { $elemMatch: { name: cityName } } }, function(err, priceRule) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json(priceRule);
+  });
+}
+exports.priceRuleFromCityOut = async (req,res) => {
+  const cityName = req.params.cityName;
+  let priceRule = await PriceRule.find({ citiesOut: { $elemMatch: { name: cityName } } }, function(err, priceRule) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json(priceRule);
+  });
+}
+exports.priceRuleFromCityInOut = async (req,res) => {
+  const cityInName = req.params.cityInName;
+  const cityOutName = req.params.cityOutName;
+  let priceRule = await PriceRule.find({ citiesIn: { $elemMatch: { name: cityInName } },citiesOut: { $elemMatch: { name: cityOutName } } }, function(err, priceRule) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json(priceRule);
+  });
+}
+
+exports.priceRuleFromClient = async (req,res) => {
+  const clientName = req.params.clientName;
+  let priceRule = await PriceRule.find({ clients: { $elemMatch: { name: clientName } } }, function(err, priceRule) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json(priceRule);
+  });
 }
 
 exports.priceRuleCustomersList = async (req,res) => {
@@ -171,7 +214,6 @@ exports.priceRuleCountriesDelete = async (req,res) => {
     }
   );
 }
-
 
 exports.priceRuleCitiesInList = async (req,res) => {
   const priceRuleId=req.params.priceRuleId

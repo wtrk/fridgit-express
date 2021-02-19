@@ -9,7 +9,7 @@ const storesSchema = new mongoose.Schema(
     branch_number: String,
     location:{
       city_id: String,
-      area: String,
+      neighbourhood_id: String,
       mobile: String,
     },
     finance: String,

@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
  
 const priceRuleSchema = new mongoose.Schema(
   {
+    priority: {
+      type: Number,
+      default: 1,
+    },
     name: String,
     service: String,
     handling_in: Number,

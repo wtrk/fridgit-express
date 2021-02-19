@@ -20,7 +20,7 @@ const liveOperationsSchema = new mongoose.Schema(
       shop_name: { type: String },
       mobile: { type: String },
     },
-    supplier: { type: String },
+    supplier_id: { type: String },
     client_approval: { type: String },
     status: { type: String },
     last_status_user: { type: String },

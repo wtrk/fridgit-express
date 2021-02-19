@@ -16,3 +16,4 @@ const tiersSchema = new mongoose.Schema(
 );
  
 module.exports = mongoose.model('Tiers', tiersSchema);
+

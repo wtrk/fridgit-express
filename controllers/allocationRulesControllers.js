@@ -1,7 +1,7 @@
 const AllocationRule = require('../models/allocationRules')
 
 exports.allocationRuleAdd = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  
   console.log("req","ppp",req.body)
   let newAllocationRule = await AllocationRule.insertMany(req.body, function(err, allocationRules) {
     if (err) {
@@ -14,22 +14,19 @@ exports.allocationRuleAdd = async (req,res) => {
 }
 
 exports.allocationRulesList = async (req,res) => {
-  let allocationRules = await AllocationRule.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, allocationRules) {
+  let allocationRules = await AllocationRule.find({}, null, {sort: { 'priority' : 1,'updatedAt' : -1 }}, function(err, allocationRules) {
     if (err) {
       return res.status(400).json({
         error: err,
       });
     }
-      if(allocationRules.length===0) {
-          return res.status(400).json({error: 'No allocation rules in the database'})
-      }
       return res.json(allocationRules);
     
   });
 }
 
 exports.allocationRuleDetails = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  
   let allocationRule = await AllocationRule.findById(req.param('id'), function(err, allocationRule) {
     if (err) {
       return res.status(400).json({
@@ -45,7 +42,7 @@ exports.allocationRuleDetails = async (req,res) => {
 }
 
 exports.allocationRuleUpdate = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  
   let allocationRule = await AllocationRule.findByIdAndUpdate(req.param('id'), req.body[0], function(err, allocationRule) {
     if (err) {
       return res.status(400).json({
@@ -63,7 +60,7 @@ exports.allocationRuleUpdate = async (req,res) => {
 }
 
 exports.allocationRuleDelete = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  
   let allocationRule = await AllocationRule.deleteMany(
     {
       _id: {
@@ -259,4 +256,49 @@ exports.allocationRuleOperationsDelete = async (req,res) => {
       return res.json({ message: "Successfully deleted" });
     }
   );
+}
+
+exports.allocationRuleFromCity = async (req,res) => {
+  const cityName = req.params.cityName;
+  let allocationRule = await AllocationRule.find({ cities: { $elemMatch: { name: cityName } } }, function(err, allocationRule) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json(allocationRule);
+  });
+}
+exports.allocationRuleFromNeighbourhood = async (req,res) => {
+  const neighbourhoodName = req.params.neighbourhoodName;
+  let allocationRule = await AllocationRule.find({ neighbourhoods: { $elemMatch: { name: neighbourhoodName } } }, function(err, allocationRule) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json(allocationRule);
+  });
+}
+exports.allocationRuleFromClient = async (req,res) => {
+  const clientName = req.params.clientName;
+  let allocationRule = await AllocationRule.find({ clients: { $elemMatch: { name: clientName } } }, function(err, allocationRule) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json(allocationRule);
+  });
+}
+exports.allocationRuleFromOperation = async (req,res) => {
+  const operationName = req.params.operationName;
+  let allocationRule = await AllocationRule.find({ operations: { $elemMatch: { name: operationName } } }, function(err, allocationRule) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json(allocationRule);
+  });
 }

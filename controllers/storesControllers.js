@@ -18,9 +18,6 @@ exports.storesList = async (req,res) => {
         error: err,
       });
     }
-      if(stores.length===0) {
-          return res.status(400).json({error: 'No stores in the database'})
-      }
       return res.json(stores);
     
   });
