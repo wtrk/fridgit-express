@@ -30,7 +30,6 @@ exports.warehousesList = async (req,res) => {
 }
 
 exports.warehouseDetails = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let warehouse = await Warehouse.findById(req.param('id'), function(err, warehouse) {
     if (err) {
       return res.status(400).json({
@@ -46,7 +45,6 @@ exports.warehouseDetails = async (req,res) => {
 }
 
 exports.warehouseUpdate = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let warehouse = await Warehouse.findByIdAndUpdate(req.param('id'), req.body[0], function(err, warehouse) {
     if (err) {
       return res.status(400).json({
@@ -64,9 +62,8 @@ exports.warehouseUpdate = async (req,res) => {
 }
 
 exports.warehouseDelete = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let warehouse = await Warehouse.deleteMany(
-    {_id: {$in: req.params.ids.split(",")}},
+    {},//{_id: {$in: req.params.ids.split(",")}},
     function(err, warehouse) {
         if (err) {
           return res.status(400).json({

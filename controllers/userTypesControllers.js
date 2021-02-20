@@ -29,7 +29,7 @@ exports.userTypesList = async (req,response) => {
 }
 exports.userTypeDelete = async (req,res) => {
   let userType = await UserType.deleteMany(
-    {_id: {$in: req.params.ids.split(",")}},
+    {},//{_id: {$in: req.params.ids.split(",")}},
     function(err, userType) {
         if (err) {
           return res.status(400).json({

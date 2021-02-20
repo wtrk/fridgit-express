@@ -65,7 +65,7 @@ exports.operationHistoryUpdate = async (req,res) => {
 exports.operationHistoryDelete = async (req,res) => {
   
   let operationHistory = await OperationHistory.deleteMany(
-    {_id: {$in: req.params.ids.split(",")}},
+    {},//{_id: {$in: req.params.ids.split(",")}},
     function(err, operationHistory) {
         if (err) {
           return res.status(400).json({

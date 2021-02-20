@@ -63,7 +63,7 @@ exports.fridgesTypeUpdate = async (req,res) => {
 
 exports.fridgesTypeDelete = async (req,res) => {
   let fridgesType = await FridgesType.deleteMany(
-    {_id: {$in: req.params.ids.split(",")}},
+    {},//{_id: {$in: req.params.ids.split(",")}},
     function(err, fridgesType) {
         if (err) {
           return res.status(400).json({

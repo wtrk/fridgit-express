@@ -61,7 +61,7 @@ exports.serviceTypeUpdate = async (req,res) => {
 
 exports.serviceTypeDelete = async (req,res) => {
   let serviceType = await ServiceType.deleteMany(
-    {_id: {$in: req.params.ids.split(",")}},
+    {},//{_id: {$in: req.params.ids.split(",")}},
     function(err, serviceType) {
         if (err) {
           return res.status(400).json({

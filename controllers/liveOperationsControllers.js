@@ -70,8 +70,8 @@ exports.liveOperationUpdate = async (req,res) => {
 
 exports.liveOperationDelete = async (req,res) => {
   let liveOperation = await LiveOperation.deleteMany(
-    {_id: {$in: req.params.ids.split(",")}},
-    function(err, liveOperation,response) {
+    {},//{_id: {$in: req.params.ids.split(",")}},
+    function(err, liveOperation) {
         if (err) {
           return res.status(400).json({
             error: err,
@@ -82,6 +82,6 @@ exports.liveOperationDelete = async (req,res) => {
             .status(400)
             .json({ error: "Live Operations not available in the database" });
         }
-        return res.json({message:"Successfully deleted",data:response})
+        return res.json({message:"Successfully deleted"})
       })
 }
