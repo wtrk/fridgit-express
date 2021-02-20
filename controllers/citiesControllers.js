@@ -11,7 +11,7 @@ exports.cityAdd = async (req,res) => {
   })
 }
 exports.citiesList = async (req,res) => {
-  let cities = await City.find({}, "_id name code", {sort: { 'name' : 1 }},  function(err, cities) {
+  let cities = await City.find({}, "_id name code country", {sort: { 'name' : 1 }},  function(err, cities) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -56,12 +56,8 @@ exports.cityUpdate = async (req,res) => {
 
 exports.cityDelete = async (req,res) => {
   let city = await City.deleteMany(
-    {
-      _id: {
-        $in: req.params.ids.split(",")
-
-      }
-      }, function(err, city) {
+    {_id: {$in: req.params.ids.split(",")}},
+    function(err, city) {
         if (err) {
           return res.status(400).json({
             error: err,

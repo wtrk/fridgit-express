@@ -66,8 +66,8 @@ exports.clientUpdate = async (req,res) => {
 
 exports.clientDelete = async (req,res) => {
   let client = await Client.deleteMany(
-    {
-    }, function(err, client) {
+    {_id: {$in: req.params.ids.split(",")}},
+    function(err, client) {
         if (err) {
           return res.status(400).json({
             error: err,

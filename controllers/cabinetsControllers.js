@@ -58,7 +58,7 @@ exports.cabinetUpdate = async (req,res) => {
 
 exports.cabinetDelete = async (req,res) => {
   let cabinet = await Cabinet.deleteMany(
-    {}, function(err, cabinet) {
+    {_id: {$in: req.params.ids.split(",")}}, function(err, cabinet) {
         if (err) {
           return res.status(400).json({
             error: err,

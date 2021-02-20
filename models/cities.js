@@ -4,6 +4,7 @@ const citiesSchema = new mongoose.Schema(
   {
     name: {type: String},
     code: {type: String},
+    country: {type: String},
     alias: [{name: String}]
   },
   { timestamps: true }

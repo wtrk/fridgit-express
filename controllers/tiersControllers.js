@@ -66,8 +66,8 @@ exports.tierUpdate = async (req,res) => {
 exports.tierDelete = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let tier = await Tier.deleteMany(
-    {
-      }, function(err, tier) {
+    {_id: {$in: req.params.ids.split(",")}},
+    function(err, tier) {
         if (err) {
           return res.status(400).json({
             error: err,

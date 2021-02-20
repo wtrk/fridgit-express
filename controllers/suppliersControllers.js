@@ -60,8 +60,8 @@ exports.supplierUpdate = async (req,res) => {
 
 exports.supplierDelete = async (req,res) => {
   let supplier = await Supplier.deleteMany(
-    {
-      }, function(err, supplier) {
+    {_id: {$in: req.params.ids.split(",")}},
+    function(err, supplier) {
         if (err) {
           return res.status(400).json({
             error: err,

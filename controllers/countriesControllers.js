@@ -65,8 +65,8 @@ exports.countryUpdate = async (req,res) => {
 exports.countryDelete = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let country = await Country.deleteMany(
-    {
-      }, function(err, country) {
+    {_id: {$in: req.params.ids.split(",")}},
+    function(err, country) {
         if (err) {
           return res.status(400).json({
             error: err,

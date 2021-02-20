@@ -57,7 +57,8 @@ exports.storeUpdate = async (req,res) => {
 
 exports.storeDelete = async (req,res) => {
   let store = await Store.deleteMany(
-    {}, function(err, store) {
+    {_id: {$in: req.params.ids.split(",")}},
+    function(err, store) {
         if (err) {
           return res.status(400).json({
             error: err,

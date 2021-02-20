@@ -59,8 +59,8 @@ exports.priceRuleUpdate = async (req,res) => {
 exports.priceRuleDelete = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let priceRule = await PriceRule.deleteMany(
-    {
-      }, function(err, priceRule) {
+    {_id: {$in: req.params.ids.split(",")}},
+    function(err, priceRule) {
         if (err) {
           return res.status(400).json({
             error: err,
