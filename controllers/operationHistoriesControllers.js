@@ -30,15 +30,11 @@ exports.operationHistoriesList = async (req,res) => {
 
 exports.operationHistoryDetails = async (req,res) => {
   
-  let operationHistory = await OperationHistory.findById(req.param('id'), function(err, operationHistory) {
+  let operationHistory = await OperationHistory.find({operation_number:req.param('operationId')}, null, {sort: { 'createdAt' : -1 }}, function(err, operationHistory) {
     if (err) {
       return res.status(400).json({
         error: err,
       });
-    }
-    if (operationHistory===null) {
-      return res.status(400)
-        .json({ error: "Operation History not available in the database" });
     }
     return res.json(operationHistory);
   });

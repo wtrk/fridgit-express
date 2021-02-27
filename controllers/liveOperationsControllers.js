@@ -44,9 +44,16 @@ exports.liveOperationDetailsByJobNumber = async (req,res) => {
         error: err,
       });
     }
-    if (liveOperation===null) {
-      return res.status(400)
-        .json({ error: "no Live Operation with the specific Job Number" });
+    return res.json(liveOperation);
+  });
+}
+
+exports.liveOperationDetailsBySn = async (req,res) => {
+  let liveOperation = await LiveOperation.find({ sn: req.param('sn')}, function(err, liveOperation) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
     }
     return res.json(liveOperation);
   });

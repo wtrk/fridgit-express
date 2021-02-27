@@ -40,6 +40,21 @@ exports.cabinetDetails = async (req,res) => {
   });
 }
 
+exports.cabinetUpdateBySn = async (req,res) => {
+  let cabinet = await Cabinet.findOneAndUpdate({ sn: req.param('sn')}, req.body[0], function(err, cabinet) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    if (cabinet===null) {
+      return res
+        .status(400)
+        .json({ error: "Cabinet not available in the database" });
+    }
+    return res.json(cabinet);
+  });
+}
 exports.cabinetUpdate = async (req,res) => {
   let cabinet = await Cabinet.findByIdAndUpdate(req.param('id'), req.body[0], function(err, cabinet) {
     if (err) {
@@ -58,7 +73,8 @@ exports.cabinetUpdate = async (req,res) => {
 
 exports.cabinetDelete = async (req,res) => {
   let cabinet = await Cabinet.deleteMany(
-    {_id: {$in: req.params.ids.split(",")}}, function(err, cabinet) {
+    {},//{_id: {$in: req.params.ids.split(",")}},
+    function(err, cabinet) {
         if (err) {
           return res.status(400).json({
             error: err,

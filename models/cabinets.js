@@ -18,18 +18,18 @@ const cabinetsSchema = new mongoose.Schema(
       type: String,
       default: 'NA'
     },
-    lacation:{
-      city_id: String,
-      neighbourhood_id: String,
-      area: String,
-      mobile: String,
-    },
     status: {
       type: String,
-      default: 'Needs Repair'
+      default: 'Operational'
     },
-    is_new: Boolean,
-    booked: Boolean
+    is_new: {
+      type: Boolean,
+      default: true
+    },
+    booked: {
+      type: Boolean,
+      default: false
+    }
   },
   { timestamps: true }
 );

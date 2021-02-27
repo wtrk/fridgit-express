@@ -8,6 +8,7 @@ const priceRuleSchema = new mongoose.Schema(
     },
     name: String,
     service: String,
+    promise_day: Number,
     handling_in: Number,
     storage: Number,
     in_house_preventive_maintenance: Number,
@@ -28,7 +29,8 @@ const priceRuleSchema = new mongoose.Schema(
     neighbourhoodsIn: [{name: String}],
     neighbourhoodsOut: [{name: String}],
     tiersIn: [{name: String}],
-    tiersOut: [{name: String}]
+    tiersOut: [{name: String}],
+    operations: [{name: String}]
   },
   { timestamps: true }
 );
