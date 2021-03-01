@@ -11,6 +11,7 @@ const allocationRulesSchema = new mongoose.Schema(
     supplier_id: String,
     cities: [{name: String}],
     neighbourhoods: [{name: String}],
+    tiers: [{name: String}],
     clients: [{name: String}],
     operations: [{name: String}]
   },
