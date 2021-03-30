@@ -45,6 +45,7 @@ exports.fridgesTypeDetails = async (req,res) => {
 }
 
 exports.fridgesTypeUpdate = async (req,res) => {
+  console.log(req.body[0])
   let fridgesType = await FridgesType.findByIdAndUpdate(req.param('id'), req.body[0], function(err, fridgesType) {
     if (err) {
       return res.status(400).json({

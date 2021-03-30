@@ -11,6 +11,7 @@ exports.cityAdd = async (req,res) => {
   })
 }
 exports.citiesList = async (req,res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   let cities = await City.find({}, "_id name code country", {sort: { 'name' : 1 }},  function(err, cities) {
     if (err) {
       return res.status(400).json({

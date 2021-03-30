@@ -18,6 +18,7 @@ exports.clientAdd = async (req,res) => {
   })
 }
 exports.clientsList = async (req,res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   let clients = await Client.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, clients) {
     if (err) {
       return res.status(400).json({

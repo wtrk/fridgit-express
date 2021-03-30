@@ -27,7 +27,7 @@ exports.operationsList = async (req,response) => {
 }
 exports.operationDelete = async (req,res) => {
   let operation = await Operation.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, operation) {
         if (err) {
           return res.status(400).json({

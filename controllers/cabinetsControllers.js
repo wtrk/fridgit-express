@@ -40,6 +40,22 @@ exports.cabinetDetails = async (req,res) => {
   });
 }
 
+exports.cabinetDetailsBySn = async (req,res) => {
+  const snId=req.param('sn')
+  let cabinet = await Cabinet.find({sn:snId}, function(err, cabinet) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    if (cabinet===null) {
+      return res.status(400)
+        .json({ error: "Cabinet not available in the database" });
+    }
+    return res.json(cabinet);
+  });
+}
+
 exports.cabinetUpdateBySn = async (req,res) => {
   let cabinet = await Cabinet.findOneAndUpdate({ sn: req.param('sn')}, req.body[0], function(err, cabinet) {
     if (err) {

@@ -2,22 +2,10 @@ const mongoose = require('mongoose');
  
 const suppliersSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      max: 150,
-    },
-    address: {
-      type: String,
-      max: 150,
-    },
-    phone: {
-      type: String,
-      max: 150,
-    },
-    user_id: {
-      type: String,
-      max: 150,
-    },
+    name: String,
+    address: String,
+    phone: String,
+    user_id: String,
   },
   { timestamps: true }
 );
