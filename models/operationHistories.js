@@ -6,6 +6,12 @@ const operationHistoriesSchema = new mongoose.Schema(
     user: String,
     notes: String,
     operation_number: String,
+    location: {
+      city_id: String,
+      neighbourhood_id: String,
+      shop_name: String,
+      mobile: String,
+    },
   },
   { timestamps: true }
 );

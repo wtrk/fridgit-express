@@ -20,6 +20,14 @@ const liveOperationsSchema = new mongoose.Schema(
       shop_name: String,
       mobile: String,
     },
+    allocation_rule: {
+      allocation_id:String,
+      name:String,
+    },
+    price_rule: {
+      price_id:String,
+      name:String,
+    },
     supplier_id: String,
     client_approval: String,
     status: String,

@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const fileUpload = require('express-fileupload');
 require('dotenv').config()
 
 const app= express()
@@ -20,6 +21,7 @@ mongoose.connect(process.env.DATABASE,{
 const routes = require('./routes/routes')
 
 //app middleware
+app.use(fileUpload());
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cors()) //allows all origins

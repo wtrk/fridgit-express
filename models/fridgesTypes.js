@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
  
 const fridgesTypesSchema = new mongoose.Schema(
   {
+    photo: {
+      type: String,
+      trim: true,
+    },
     name: String,
     code: String,
     Manufacture: String,

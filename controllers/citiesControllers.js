@@ -1,4 +1,5 @@
 const City = require('../models/cities')
+const Neighbourhood = require('../models/neighbourhoods')
 
 exports.cityAdd = async (req,res) => {
   let newCity = await City.insertMany(req.body, function(err, cities) {
@@ -115,4 +116,27 @@ exports.cityAliasDelete = async (req,res) => {
       return res.json({ message: "Successfully deleted" });
     }
   );
+}
+
+exports.cityNeighbourhoodDetails = async (req,res) => {
+  
+  let city = await City.findById(req.param('cityId'), function(err, city) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return city
+  });
+  
+  let neighbourhood = await Neighbourhood.findById(req.param('neighbourhoodId'), function(err, neighbourhood) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return neighbourhood
+  });
+  
+  return res.json({ city: city.name,neighbourhood: neighbourhood.name });
 }

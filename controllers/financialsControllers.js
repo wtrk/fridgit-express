@@ -116,7 +116,6 @@ exports.financialUpdateByOperationNumber = async (req,res) => {
   });
 }
 exports.financialDelete = async (req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   let financial = await Financial.deleteMany(
     {},//{_id: {$in: req.params.ids.split(",")}},
     function(err, financial) {

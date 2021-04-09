@@ -1,5 +1,6 @@
 const Client = require('../models/clients')
 
+
 exports.clientsRenameCompanyToName = async (req,res) => {
   Client.updateMany({}, { $rename: { company: 'name' } }, { multi: true }, function(err, blocks) {
     if(err) { throw err; }
@@ -62,6 +63,33 @@ exports.clientUpdate = async (req,res) => {
     }
     return res.json(client);
   });
+  
+}
+exports.clientUpdateImg = async (req,res) => {
+  if (req.files !== null) {
+    const file = req.files.file;
+  
+    file.mv(`../frontend/src/assets/uploads/clients/${file.name}`, err => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send(err);
+      }
+  
+      let client = Client.findByIdAndUpdate(req.param('id'), {"photo":file.name}, function(err, client) {
+        if (err) {
+          return res.status(400).json({
+            error: err,
+          });
+        }
+        if (client===null) {
+          return res
+            .status(400)
+            .json({ error: "Client not available in the database" });
+        }
+        return res.json({"message":"Success"});
+      });
+    });
+  }
   
 }
 
