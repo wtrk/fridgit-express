@@ -83,7 +83,7 @@ exports.fridgesTypeUpdateImg = async (req,res) => {
   if (req.files !== null) {
     const file = req.files.file;
   
-    file.mv(`public/types/${file.name}`, err => {
+    file.mv(`../frontend/public/img/types/${file.name}`, err => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);
