@@ -13,16 +13,19 @@ exports.serviceTypeAdd = async (req,res) => {
 }
 
 exports.serviceTypesList = async (req,res) => {
-  let serviceTypes = await ServiceType.find({}, null, {sort: { 'updatedAt' : -1 }}, function(err, serviceTypes) {
+  const limit = parseInt(req.query.limit);
+  const skip = parseInt(req.query.skip);
+  const searchEntry = req.query.searchEntry? {name:req.query.searchEntry.split(",")}:{};
+
+  const count= await ServiceType.estimatedDocumentCount((err, count) => count);
+  
+  let serviceTypes = await ServiceType.find(searchEntry, null, {sort: { 'updatedAt' : -1 }, skip, limit}, function(err, data) {
     if (err) {
       return res.status(400).json({
         error: err,
       });
     }
-      if(serviceTypes.length===0) {
-          return res.status(400).json({error: 'No service types in the database'})
-      }
-      return res.json(serviceTypes);
+      return res.json({count,data});
     
   });
 }
@@ -61,7 +64,7 @@ exports.serviceTypeUpdate = async (req,res) => {
 
 exports.serviceTypeDelete = async (req,res) => {
   let serviceType = await ServiceType.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, serviceType) {
         if (err) {
           return res.status(400).json({

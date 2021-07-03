@@ -20,9 +20,6 @@ exports.operationHistoriesList = async (req,res) => {
         error: err,
       });
     }
-      if(operationHistories.length===0) {
-          return res.status(400).json({error: 'No operation histories in the database'})
-      }
       return res.json(operationHistories);
     
   });
@@ -61,7 +58,7 @@ exports.operationHistoryUpdate = async (req,res) => {
 exports.operationHistoryDelete = async (req,res) => {
   
   let operationHistory = await OperationHistory.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, operationHistory) {
         if (err) {
           return res.status(400).json({

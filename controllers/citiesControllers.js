@@ -58,7 +58,7 @@ exports.cityUpdate = async (req,res) => {
 
 exports.cityDelete = async (req,res) => {
   let city = await City.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, city) {
         if (err) {
           return res.status(400).json({

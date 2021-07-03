@@ -2,14 +2,8 @@ const mongoose = require('mongoose');
  
 const serviceTypesSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      max: 150,
-    },
-    code: {
-      type: String,
-      max: 150,
-    }
+    name: String,
+    code: String
   },
   { timestamps: true }
 );

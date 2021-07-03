@@ -64,7 +64,7 @@ exports.countryUpdate = async (req,res) => {
 
 exports.countryDelete = async (req,res) => {
   let country = await Country.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, country) {
         if (err) {
           return res.status(400).json({

@@ -30,7 +30,8 @@ const priceRuleSchema = new mongoose.Schema(
     neighbourhoodsOut: [{name: String}],
     tiersIn: [{name: String}],
     tiersOut: [{name: String}],
-    operations: [{name: String}]
+    operations: [{name: String}],
+    active: Number
   },
   { timestamps: true }
 );

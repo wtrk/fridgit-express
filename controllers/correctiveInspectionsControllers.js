@@ -60,7 +60,7 @@ exports.correctiveInspectionUpdate = async (req,res) => {
 
 exports.correctiveInspectionDelete = async (req,res) => {
   let correctiveInspection = await CorrectiveInspection.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, correctiveInspection) {
         if (err) {
           return res.status(400).json({

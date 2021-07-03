@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const financialSchema = new mongoose.Schema(
   {
     sn: String,
+    price_rule_name: String,
     job_number: String,
     operation_number: String,
     promise_day: Number,
@@ -23,6 +24,13 @@ const financialSchema = new mongoose.Schema(
     total: Number,
     labor:Number,
     spare:Number,
+    location: {
+      city_id: String,
+      neighbourhood_id: String,
+      shop_name: String,
+      mobile: String,
+    },
+    operation_type: String
   },
   { timestamps: true }
 );

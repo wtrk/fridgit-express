@@ -57,7 +57,7 @@ exports.neighbourhoodUpdate = async (req,res) => {
 
 exports.neighbourhoodDelete = async (req,res) => {
   let neighbourhood = await Neighbourhood.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, neighbourhood) {
         if (err) {
           return res.status(400).json({

@@ -61,7 +61,7 @@ exports.correctiveActionUpdate = async (req,res) => {
 
 exports.correctiveActionDelete = async (req,res) => {
   let correctiveAction = await CorrectiveAction.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, correctiveAction) {
         if (err) {
           return res.status(400).json({

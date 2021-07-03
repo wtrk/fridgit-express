@@ -1,4 +1,11 @@
 const PriceRule = require('../models/priceRules')
+const Warehouse = require('../models/warehouses')
+const Store = require('../models/stores')
+const Client = require('../models/clients')
+const Operation = require('../models/operations')
+const City = require('../models/cities')
+const Neighbourhood = require('../models/neighbourhoods')
+const Tier = require('../models/tiers')
 
 exports.priceRuleAdd = async (req,res) => {
   let newPriceRule = await PriceRule.insertMany(req.body, function(err, priceRules) {
@@ -11,18 +18,109 @@ exports.priceRuleAdd = async (req,res) => {
   })
 }
 exports.priceRulesList = async (req,res) => {
-  let priceRules = await PriceRule.find({}, null, {sort: { 'priority' : 1,'updatedAt' : -1 }}, function(err, priceRules) {
+  let conditionsSubmitted={}
+  if(req.query.clientId){
+    let clients = await Client.findById(req.query.clientId,"name", (err, data) => data);
+    conditionsSubmitted["clients.name"]=clients.name
+  }
+  if(req.query.operationId){
+    let operations = await Operation.findById(req.query.operationId,"name", (err, data) => data);
+    conditionsSubmitted["operations.name"]=operations.name
+  }
+  if(req.query.citiesInId){
+    let citiesIn = await City.findById(req.query.citiesInId,"name", (err, data) => data);
+    conditionsSubmitted["citiesIn.name"]=citiesIn.name
+  }
+  if(req.query.citiesOutId){
+    let citiesOut = await City.findById(req.query.citiesOutId,"name", (err, data) => data);
+    conditionsSubmitted["citiesOut.name"]=citiesOut.name
+  }
+  if(req.query.neighbourhoodsInId){
+    let neighbourhoodsIn = await Neighbourhood.findById(req.query.neighbourhoodsInId,"name", (err, data) => data);
+    conditionsSubmitted["neighbourhoodsIn.name"]=neighbourhoodsIn.name
+  }
+  if(req.query.neighbourhoodsOutId){
+    let neighbourhoodsOut = await Neighbourhood.findById(req.query.neighbourhoodsOutId,"name", (err, data) => data);
+    conditionsSubmitted["neighbourhoodsOut.name"]=neighbourhoodsOut.name
+  }
+  if(req.query.tiersInId){
+    let tiersIn = await Tier.findById(req.query.tiersInId,"name", (err, data) => data);
+    conditionsSubmitted["tiersIn.name"]=tiersIn.name
+  }
+  if(req.query.tiersOutId){
+    let tiersOut = await Tier.findById(req.query.tiersOutId,"name", (err, data) => data);
+    conditionsSubmitted["tiersOut.name"]=tiersOut.name
+  }
+
+
+  console.log("conditionsSubmitted",conditionsSubmitted)
+  let priceRules = await PriceRule.find(conditionsSubmitted, null, {sort: { 'priority' : 1,'updatedAt' : -1 }}, function(err, dbData) {
     if (err) {
       return res.status(400).json({
         error: err,
       });
     }
-      if(priceRules.length===0) {
-          return res.status(400).json({error: 'No price rules in the database'})
-      }
-      return res.json(priceRules);
+      return res.json(dbData);
     
   });
+}
+exports.priceRulesFilterTop = async (req,res) => {
+  let countries = "",citiesIn = "",citiesOut = "",neighbourhoodsIn = "",neighbourhoodsOut = "",tiersIn = "",tiersOut = "" ;
+  let conditionsSubmitted = [];
+  let conditionsSubmittedArrays = [];
+  if(req.query.store){
+    await Store.findById(req.query.store, function(err, dbData) {
+      if (dbData) {
+        if(req.query.operationType==="Retrieval"){
+          citiesIn=dbData.location.city_id;
+          neighbourhoodsIn=dbData.location.neighbourhood_id
+        }else{
+          citiesOut=dbData.location.city_id;
+          neighbourhoodsOut=dbData.location.neighbourhood_id
+        }
+      }
+    });
+  }
+  if(req.query.warehouse){
+    await Warehouse.findById(req.query.warehouse, function(err, dbData) {
+      if (dbData) {
+        if(req.query.operationType==="Deployment"){
+          citiesIn=dbData.location.city_id;
+          neighbourhoodsIn=dbData.location.neighbourhood_id
+        }else{
+          citiesOut=dbData.location.city_id;
+          neighbourhoodsOut=dbData.location.neighbourhood_id
+        }
+      }
+    });
+  }
+  
+  if(req.query.operationType) conditionsSubmitted.push({$or:[{operations: { $size: 0 }},{operations: { $elemMatch: { name: req.query.operationType } } }]})
+  if(countries) conditionsSubmitted.push({$or:[{countries: { $size: 0 }},{countries: { $elemMatch: { name: countries } } }]})
+  if(req.query.client) conditionsSubmitted.push({$or:[{clients: { $size: 0 }},{clients: { $elemMatch: { _id: req.query.client } } }]})
+  if(citiesIn) conditionsSubmitted.push({$or:[{citiesIn: { $size: 0 }},{citiesIn: { $elemMatch: { name: citiesIn } } }]})
+  if(citiesOut) conditionsSubmitted.push({$or:[{citiesOut: { $size: 0 }},{citiesOut: { $elemMatch: { name:citiesOut } } }]})
+  if(neighbourhoodsIn) conditionsSubmitted.push({$or:[{neighbourhoodsIn: { $size: 0 }},{neighbourhoodsIn: { $elemMatch: { name: neighbourhoodsIn } } }]})
+  if(neighbourhoodsOut) conditionsSubmitted.push({$or:[{neighbourhoodsOut: { $size: 0 }},{neighbourhoodsOut: { $elemMatch: { name: neighbourhoodsOut } } }]})
+  if(tiersIn) conditionsSubmitted.push({$or:[{tiersIn: { $size: 0 }},{tiersIn: { $elemMatch: { name: tiersIn } } }]})
+  if(tiersOut) conditionsSubmitted.push({$or:[{tiersOut: { $size: 0 }},{tiersOut: { $elemMatch: { name: tiersOut } } }]})
+  if(req.query.serviceType) conditionsSubmitted.push({service:req.query.serviceType})
+  conditionsSubmitted.push({active:1})
+
+
+  let priceRules = await PriceRule.find({$and: conditionsSubmitted},null,
+    { sort: { priority: 1, updatedAt: -1 }, limit: 1 },
+    function (err, data) {
+      console.log("data",data)
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      console.log("data", data);
+      return res.json(data[0]||{});
+    }
+  );
 }
 exports.priceRuleDetails = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -59,7 +157,7 @@ exports.priceRuleUpdate = async (req,res) => {
 exports.priceRuleDelete = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let priceRule = await PriceRule.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, priceRule) {
         if (err) {
           return res.status(400).json({

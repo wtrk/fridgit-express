@@ -62,7 +62,7 @@ exports.warehouseUpdate = async (req,res) => {
 
 exports.warehouseDelete = async (req,res) => {
   let warehouse = await Warehouse.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, warehouse) {
         if (err) {
           return res.status(400).json({

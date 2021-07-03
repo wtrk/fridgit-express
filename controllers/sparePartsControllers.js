@@ -59,7 +59,7 @@ exports.sparePartUpdate = async (req,res) => {
 
 exports.sparePartDelete = async (req,res) => {
   let sparePart = await SparePart.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, sparePart) {
         if (err) {
           return res.status(400).json({

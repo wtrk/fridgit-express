@@ -1,4 +1,6 @@
 const AllocationRule = require('../models/allocationRules')
+const Warehouse = require('../models/warehouses')
+const Store = require('../models/stores')
 
 exports.allocationRuleAdd = async (req,res) => {
   
@@ -24,6 +26,50 @@ exports.allocationRulesList = async (req,res) => {
     
   });
 }
+
+exports.allocationRulesFilterTop = async (req,res) => {  
+  let cities = "",neighbourhoods="",tiers = "" ;
+  let conditionsSubmitted = [];
+    if(req.query.operationType==="Retrieval"){
+      if(req.query.warehouse){
+        await Warehouse.findById(req.query.warehouse, function(err, dbData) {
+          if (dbData) {
+            cities=dbData.location.city_id;
+            neighbourhoods=dbData.location.neighbourhood_id
+          }
+        });
+      }
+    }else{
+      if(req.query.store){
+      await Store.findById(req.query.store, function(err, dbData) {
+        if (dbData) {
+          cities=dbData.location.city_id;
+          neighbourhoods=dbData.location.neighbourhood_id
+        }
+      });
+    }
+    }
+    if(req.query.operationType) conditionsSubmitted.push({$or:[{operations: { $size: 0 }},{operations: { $elemMatch: { name: req.query.operationType } } }]})
+    if(req.query.client) conditionsSubmitted.push({$or:[{clients: { $size: 0 }},{clients: { $elemMatch: { name: req.query.client } } }]})
+    if(cities) conditionsSubmitted.push({$or:[{cities: { $size: 0 }},{cities: { $elemMatch: { name: cities } } }]})
+    if(neighbourhoods) conditionsSubmitted.push({$or:[{neighbourhoods: { $size: 0 }},{neighbourhoods: { $elemMatch: { name: neighbourhoods } } }]})
+    if(tiers) conditionsSubmitted.push({$or:[{tiers: { $size: 0 }},{tiers: { $elemMatch: { name: tiers } } }]})
+
+    
+  let AllocationRules = await AllocationRule.find({$and:conditionsSubmitted},null,
+    { sort: { priority: 1, updatedAt: -1 }, limit: 1 },
+    function (err, data) {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      return res.json(data[0]||{});
+    }
+  );
+}
+
+
 
 exports.allocationRuleDetails = async (req,res) => {
   
@@ -62,7 +108,7 @@ exports.allocationRuleUpdate = async (req,res) => {
 exports.allocationRuleDelete = async (req,res) => {
   
   let allocationRule = await AllocationRule.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
      function(err, allocationRule) {
         if (err) {
           return res.status(400).json({

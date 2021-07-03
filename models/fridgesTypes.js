@@ -14,10 +14,9 @@ const fridgesTypesSchema = new mongoose.Schema(
     width: Number,
     height: Number,
     cbm: Number,
+    preventive_count_year: Number,
     preventive:[{
-      preventiveActions_id: String,
-      rightAnswer_id: String,
-      notes:String
+      preventiveActions_id: String
     }]
   },
   { timestamps: true }

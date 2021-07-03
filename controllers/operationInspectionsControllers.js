@@ -70,7 +70,7 @@ exports.operationInspectionUpdate = async (req,res) => {
 
 exports.operationInspectionDelete = async (req,res) => {
   let operationInspection = await OperationInspection.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, operationInspection) {
         if (err) {
           return res.status(400).json({

@@ -22,9 +22,6 @@ exports.fridgesTypesList = async (req,res) => {
         error: err,
       });
     }
-      if(fridgesTypes.length===0) {
-          return res.status(400).json({error: 'No fridges Types in the database'})
-      }
       return res.json(fridgesTypes);
     
   });
@@ -81,6 +78,7 @@ exports.fridgesTypeUpdate = async (req,res) => {
   });
   
 }
+
 exports.fridgesTypeUpdateImg = async (req,res) => {
   if (req.files !== null) {
     const file = req.files.file;
@@ -111,7 +109,7 @@ exports.fridgesTypeUpdateImg = async (req,res) => {
 
 exports.fridgesTypeDelete = async (req,res) => {
   let fridgesType = await FridgesType.deleteMany(
-    {},//{_id: {$in: req.params.ids.split(",")}},
+    {_id: {$in: req.params.ids.split(",")}},
     function(err, fridgesType) {
         if (err) {
           return res.status(400).json({
