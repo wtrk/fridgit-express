@@ -21,6 +21,7 @@ mongoose.connect(process.env.DATABASE,{
 const routes = require('./routes/routes')
 
 //app middleware
+app.use(express.static('public'));
 app.use(fileUpload());
 app.use(morgan('dev'))
 app.use(bodyParser.json())

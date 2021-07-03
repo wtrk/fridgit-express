@@ -69,7 +69,7 @@ exports.clientUpdateImg = async (req,res) => {
   if (req.files !== null) {
     const file = req.files.file;
   
-    file.mv(`../frontend/src/assets/uploads/clients/${file.name}`, err => {
+    file.mv(`public/clients/${file.name}`, err => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);
