@@ -16,6 +16,7 @@ const tiersControllers = require('../controllers/tiersControllers')
 const neighbourhoodsControllers = require('../controllers/neighbourhoodsControllers')
 const serviceTypesControllers = require('../controllers/serviceTypesControllers')
 const suppliersControllers = require('../controllers/suppliersControllers')
+const invoicesControllers = require('../controllers/invoicesControllers')
 const operationActionsControllers = require('../controllers/operationActionsControllers')
 const operationInspectionsControllers = require('../controllers/operationInspectionsControllers')
 const operationSparePartsControllers = require('../controllers/operationSparePartsControllers')
@@ -276,6 +277,12 @@ router.post("/preventiveActions", preventiveActionsControllers.preventiveActionA
 router.put("/preventiveActions/:id", preventiveActionsControllers.preventiveActionUpdate)
 router.delete("/preventiveActions/:ids", preventiveActionsControllers.preventiveActionDelete)
 
+
+router.get("/invoices", invoicesControllers.invoicesList)
+router.get("/invoices/:id", invoicesControllers.invoiceDetails)
+router.post("/invoices", invoicesControllers.invoiceAdd)
+router.put("/invoices/:id", invoicesControllers.invoiceUpdate)
+router.delete("/invoices/:ids", invoicesControllers.invoiceDelete)
 
 
 module.exports = router

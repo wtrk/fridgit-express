@@ -18,9 +18,6 @@ exports.suppliersList = async (req,res) => {
         error: err,
       });
     }
-      if(suppliers.length===0) {
-          return res.status(400).json({error: 'No suppliers in the database'})
-      }
       return res.json(suppliers);
     
   });
