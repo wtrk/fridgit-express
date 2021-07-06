@@ -28,7 +28,7 @@ exports.fridgesTypesList = async (req,res) => {
 }
 
 exports.fridgesTypeDetails = async (req,res) => {
-  let fridgesType = await FridgesType.findById(req.param('id'), function(err, fridgesType) {
+  let fridgesType = await FridgesType.findById(req.params.id, function(err, fridgesType) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -63,7 +63,7 @@ exports.fridgesTypeDetailsBySn = async (req,res) => {
 
 exports.fridgesTypeUpdate = async (req,res) => {
   console.log(req.body[0])
-  let fridgesType = await FridgesType.findByIdAndUpdate(req.param('id'), req.body[0], function(err, fridgesType) {
+  let fridgesType = await FridgesType.findByIdAndUpdate(req.params.id, req.body[0], function(err, fridgesType) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -83,7 +83,7 @@ exports.fridgesTypeUpdateImg = async (req,res) => {
   if (req.files !== null) {
     const file = req.files.file;
   
-    file.mv(`public/files/types/${file.name}`, err => {
+    file.mv(`../frontend/public/img/types/${file.name}`, err => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);

@@ -24,7 +24,7 @@ exports.operationSparePartsList = async (req,res) => {
 }
 
 exports.operationSparePartDetails = async (req,res) => {
-  let operationSparePart = await OperationSparePart.findById(req.param('id'), function(err, operationSparePart) {
+  let operationSparePart = await OperationSparePart.findById(req.params.id, function(err, operationSparePart) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -51,8 +51,8 @@ exports.operationSparePartbyOperationId = async (req,res) => {
 }
 
 exports.operationSparePartUpdate = async (req,res) => {
-  console.log("id",req.param('id'))
-  let operationSparePart = await OperationSparePart.findByIdAndUpdate(req.param('id'), req.body[0], function(err, operationSparePart) {
+  console.log("id",req.params.id)
+  let operationSparePart = await OperationSparePart.findByIdAndUpdate(req.params.id, req.body[0], function(err, operationSparePart) {
     if (err) {
       return res.status(400).json({
         error: err,

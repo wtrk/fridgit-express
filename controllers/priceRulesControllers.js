@@ -124,7 +124,7 @@ exports.priceRulesFilterTop = async (req,res) => {
 }
 exports.priceRuleDetails = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let priceRule = await PriceRule.findById(req.param('id'), function(err, priceRule) {
+  let priceRule = await PriceRule.findById(req.params.id, function(err, priceRule) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -139,7 +139,7 @@ exports.priceRuleDetails = async (req,res) => {
 }
 exports.priceRuleUpdate = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let priceRule = await PriceRule.findByIdAndUpdate(req.param('id'), req.body[0], function(err, priceRule) {
+  let priceRule = await PriceRule.findByIdAndUpdate(req.params.id, req.body[0], function(err, priceRule) {
     if (err) {
       return res.status(400).json({
         error: err,

@@ -24,7 +24,7 @@ exports.operationActionsList = async (req,res) => {
 }
 
 exports.operationActionDetails = async (req,res) => {
-  let operationAction = await OperationAction.find({ '_id': { $in: req.param('id').split(",") } },function(err, operationAction) {
+  let operationAction = await OperationAction.find({ '_id': { $in: req.params.id.split(",") } },function(err, operationAction) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -39,7 +39,7 @@ exports.operationActionDetails = async (req,res) => {
 }
 
 exports.operationActionUpdate = async (req,res) => {
-  let operationAction = await OperationAction.findByIdAndUpdate(req.param('id'), req.body[0], function(err, operationAction) {
+  let operationAction = await OperationAction.findByIdAndUpdate(req.params.id, req.body[0], function(err, operationAction) {
     if (err) {
       return res.status(400).json({
         error: err,

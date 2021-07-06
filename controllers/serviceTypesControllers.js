@@ -31,7 +31,7 @@ exports.serviceTypesList = async (req,res) => {
 }
 
 exports.serviceTypeDetails = async (req,res) => {
-  let serviceType = await ServiceType.findById(req.param('id'), function(err, serviceType) {
+  let serviceType = await ServiceType.findById(req.params.id, function(err, serviceType) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -46,7 +46,7 @@ exports.serviceTypeDetails = async (req,res) => {
 }
 
 exports.serviceTypeUpdate = async (req,res) => {
-  let serviceType = await ServiceType.findByIdAndUpdate(req.param('id'), req.body[0], function(err, serviceType) {
+  let serviceType = await ServiceType.findByIdAndUpdate(req.params.id, req.body[0], function(err, serviceType) {
     if (err) {
       return res.status(400).json({
         error: err,

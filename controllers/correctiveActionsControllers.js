@@ -28,7 +28,7 @@ exports.correctiveActionsList = async (req,res) => {
 }
 
 exports.correctiveActionDetails = async (req,res) => {
-  let correctiveAction = await CorrectiveAction.find({ '_id': { $in: req.param('id').split(",") } }, function(err, correctiveAction) {
+  let correctiveAction = await CorrectiveAction.find({ '_id': { $in: req.params.id.split(",") } }, function(err, correctiveAction) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -43,7 +43,7 @@ exports.correctiveActionDetails = async (req,res) => {
 }
 
 exports.correctiveActionUpdate = async (req,res) => {
-  let correctiveAction = await CorrectiveAction.findByIdAndUpdate(req.param('id'), req.body[0], function(err, correctiveAction) {
+  let correctiveAction = await CorrectiveAction.findByIdAndUpdate(req.params.id, req.body[0], function(err, correctiveAction) {
     if (err) {
       return res.status(400).json({
         error: err,

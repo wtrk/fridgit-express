@@ -27,7 +27,7 @@ exports.suppliersList = async (req,res) => {
 }
 
 exports.supplierDetails = async (req,res) => {
-  let supplier = await Supplier.findById(req.param('id'), function(err, supplier) {
+  let supplier = await Supplier.findById(req.params.id, function(err, supplier) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -42,7 +42,7 @@ exports.supplierDetails = async (req,res) => {
 }
 
 exports.supplierUpdate = async (req,res) => {
-  let supplier = await Supplier.findByIdAndUpdate(req.param('id'), req.body[0], function(err, supplier) {
+  let supplier = await Supplier.findByIdAndUpdate(req.params.id, req.body[0], function(err, supplier) {
     if (err) {
       return res.status(400).json({
         error: err,

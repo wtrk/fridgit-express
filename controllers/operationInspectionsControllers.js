@@ -27,7 +27,7 @@ exports.operationInspectionsList = async (req,res) => {
 }
 
 exports.operationInspectionDetails = async (req,res) => {
-  let operationInspection = await OperationInspection.find({ '_id': { $in: req.param('id').split(",") } }, function(err, operationInspection) {
+  let operationInspection = await OperationInspection.find({ '_id': { $in: req.params.id.split(",") } }, function(err, operationInspection) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -52,7 +52,7 @@ exports.operationInspectionbyOperationId = async (req,res) => {
   });
 }
 exports.operationInspectionUpdate = async (req,res) => {
-  let operationInspection = await OperationInspection.findByIdAndUpdate(req.param('id'), req.body[0], function(err, operationInspection) {
+  let operationInspection = await OperationInspection.findByIdAndUpdate(req.params.id, req.body[0], function(err, operationInspection) {
     if (err) {
       return res.status(400).json({
         error: err,

@@ -25,7 +25,7 @@ exports.citiesList = async (req,res) => {
 }
 
 exports.cityDetails = async (req,res) => {
-  let city = await City.findById(req.param('id'), function(err, city) {
+  let city = await City.findById(req.params.id, function(err, city) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -40,7 +40,7 @@ exports.cityDetails = async (req,res) => {
 }
 
 exports.cityUpdate = async (req,res) => {
-  let city = await City.findByIdAndUpdate(req.param('id'), req.body[0], function(err, city) {
+  let city = await City.findByIdAndUpdate(req.params.id, req.body[0], function(err, city) {
     if (err) {
       return res.status(400).json({
         error: err,

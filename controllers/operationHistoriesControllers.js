@@ -39,7 +39,7 @@ exports.operationHistoryDetails = async (req,res) => {
 
 exports.operationHistoryUpdate = async (req,res) => {
   
-  let operationHistory = await OperationHistory.findByIdAndUpdate(req.param('id'), req.body[0], function(err, operationHistory) {
+  let operationHistory = await OperationHistory.findByIdAndUpdate(req.params.id, req.body[0], function(err, operationHistory) {
     if (err) {
       return res.status(400).json({
         error: err,

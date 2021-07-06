@@ -25,7 +25,7 @@ exports.userProfilesList = async (req,res) => {
   });
 }
 exports.userProfileDetails = async (req,res) => {
-  let userProfile = await UserProfile.findById(req.param('id'), function(err, userProfile) {
+  let userProfile = await UserProfile.findById(req.params.id, function(err, userProfile) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -39,7 +39,7 @@ exports.userProfileDetails = async (req,res) => {
   });
 }
 exports.userProfileUpdate = async (req,res) => {
-  let userProfile = await UserProfile.findByIdAndUpdate(req.param('id'), req.body[0], function(err, userProfile) {
+  let userProfile = await UserProfile.findByIdAndUpdate(req.params.id, req.body[0], function(err, userProfile) {
     if (err) {
       return res.status(400).json({
         error: err,

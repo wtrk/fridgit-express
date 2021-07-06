@@ -37,7 +37,7 @@ exports.usersList = async (req,res) => {
 }
 
 exports.userDetails = async (req,res) => {
-  let user = await User.findById (req.param('id'), function(err, user) {
+  let user = await User.findById (req.params.id, function(err, user) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -53,7 +53,7 @@ exports.userDetails = async (req,res) => {
 }
 
 exports.userUpdate = async (req,res) => {
-  let user = await User.findByIdAndUpdate(req.param('id'), req.body[0], function(err, user) {
+  let user = await User.findByIdAndUpdate(req.params.id, req.body[0], function(err, user) {
     if (err) {
       return res.status(400).json({
         error: err,

@@ -171,7 +171,7 @@ exports.cabinetsListFilter = async (req,res) => {
 }
 
 exports.cabinetDetails = async (req,res) => {
-  let cabinet = await Cabinet.findById(req.param('id'), function(err, cabinet) {
+  let cabinet = await Cabinet.findById(req.params.id, function(err, cabinet) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -217,7 +217,7 @@ exports.cabinetUpdateBySn = async (req,res) => {
   });
 }
 exports.cabinetUpdate = async (req,res) => {
-  let cabinet = await Cabinet.findByIdAndUpdate(req.param('id'), req.body[0], function(err, cabinet) {
+  let cabinet = await Cabinet.findByIdAndUpdate(req.params.id, req.body[0], function(err, cabinet) {
     if (err) {
       return res.status(400).json({
         error: err,

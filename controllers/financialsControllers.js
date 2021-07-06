@@ -135,7 +135,7 @@ exports.financialsListToExport = async (req,res) => {
 
 
 exports.financialDetails = async (req,res) => {
-  let financial = await Financial.findById(req.param('id'), function(err, dbData) {
+  let financial = await Financial.findById(req.params.id, function(err, dbData) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -149,7 +149,7 @@ exports.financialDetails = async (req,res) => {
   });
 }
 exports.financialUpdate = async (req,res) => {
-  let financial = await Financial.findByIdAndUpdate(req.param('id'), req.body[0], function(err, dbData) {
+  let financial = await Financial.findByIdAndUpdate(req.params.id, req.body[0], function(err, dbData) {
     if (err) {
       return res.status(400).json({
         error: err,

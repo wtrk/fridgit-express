@@ -29,7 +29,7 @@ exports.warehousesList = async (req,res) => {
 }
 
 exports.warehouseDetails = async (req,res) => {
-  let warehouse = await Warehouse.findById(req.param('id'), function(err, warehouse) {
+  let warehouse = await Warehouse.findById(req.params.id, function(err, warehouse) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -44,7 +44,7 @@ exports.warehouseDetails = async (req,res) => {
 }
 
 exports.warehouseUpdate = async (req,res) => {
-  let warehouse = await Warehouse.findByIdAndUpdate(req.param('id'), req.body[0], function(err, warehouse) {
+  let warehouse = await Warehouse.findByIdAndUpdate(req.params.id, req.body[0], function(err, warehouse) {
     if (err) {
       return res.status(400).json({
         error: err,

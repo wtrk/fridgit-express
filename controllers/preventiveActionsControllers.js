@@ -28,7 +28,7 @@ exports.preventiveActionsList = async (req,res) => {
 }
 
 exports.preventiveActionDetails = async (req,res) => {
-  let preventiveAction = await PreventiveAction.find({ '_id': { $in: req.param('id').split(",") } }, function(err, preventiveAction) {
+  let preventiveAction = await PreventiveAction.find({ '_id': { $in: req.params.id.split(",") } }, function(err, preventiveAction) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -43,7 +43,7 @@ exports.preventiveActionDetails = async (req,res) => {
 }
 
 exports.preventiveActionUpdate = async (req,res) => {
-  let preventiveAction = await PreventiveAction.findByIdAndUpdate(req.param('id'), req.body[0], function(err, preventiveAction) {
+  let preventiveAction = await PreventiveAction.findByIdAndUpdate(req.params.id, req.body[0], function(err, preventiveAction) {
     if (err) {
       return res.status(400).json({
         error: err,

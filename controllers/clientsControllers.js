@@ -35,7 +35,7 @@ exports.clientsList = async (req,res) => {
 }
 
 exports.clientDetails = async (req,res) => {
-  let client = await Client.findById(req.param('id'), function(err, client) {
+  let client = await Client.findById(req.params.id, function(err, client) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -50,7 +50,7 @@ exports.clientDetails = async (req,res) => {
 }
 
 exports.clientUpdate = async (req,res) => {
-  let client = await Client.findByIdAndUpdate(req.param('id'), req.body, function(err, client) {
+  let client = await Client.findByIdAndUpdate(req.params.id, req.body, function(err, client) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -69,13 +69,13 @@ exports.clientUpdateImg = async (req,res) => {
   if (req.files !== null) {
     const file = req.files.file;
 
-    file.mv(`public/files/clients/${file.name}`, err => {
+    file.mv(`../frontend/public/img/clients/${file.name}`, err => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);
       }
   
-      let client = Client.findByIdAndUpdate(req.param('id'), {"photo":file.name}, function(err, client) {
+      let client = Client.findByIdAndUpdate(req.params.id, {"photo":file.name}, function(err, client) {
         if (err) {
           return res.status(400).json({
             error: err,

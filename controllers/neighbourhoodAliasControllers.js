@@ -26,7 +26,7 @@ exports.neighbourhoodAliasList = async (req,res) => {
 }
 
 exports.neighbourhoodAliasDetails = async (req,res) => {
-  let neighbourhoodAlias = await NeighbourhoodAlias.findById(req.param('id'), function(err, neighbourhoodAlias) {
+  let neighbourhoodAlias = await NeighbourhoodAlias.findById(req.params.id, function(err, neighbourhoodAlias) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -41,7 +41,7 @@ exports.neighbourhoodAliasDetails = async (req,res) => {
 }
 
 exports.neighbourhoodAliasUpdate = async (req,res) => {
-  let neighbourhoodAlias = await NeighbourhoodAlias.findByIdAndUpdate(req.param('id'), req.body[0], function(err, neighbourhoodAlias) {
+  let neighbourhoodAlias = await NeighbourhoodAlias.findByIdAndUpdate(req.params.id, req.body[0], function(err, neighbourhoodAlias) {
     if (err) {
       return res.status(400).json({
         error: err,

@@ -31,7 +31,7 @@ exports.tiersList = async (req,res) => {
 
 exports.tierDetails = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let tier = await Tier.findById(req.param('id'), function(err, tier) {
+  let tier = await Tier.findById(req.params.id, function(err, tier) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -47,7 +47,7 @@ exports.tierDetails = async (req,res) => {
 
 exports.tierUpdate = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  let tier = await Tier.findByIdAndUpdate(req.param('id'), req.body[0], function(err, tier) {
+  let tier = await Tier.findByIdAndUpdate(req.params.id, req.body[0], function(err, tier) {
     if (err) {
       return res.status(400).json({
         error: err,

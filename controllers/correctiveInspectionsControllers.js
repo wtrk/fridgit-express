@@ -28,7 +28,7 @@ exports.correctiveInspectionsList = async (req,res) => {
 }
 
 exports.correctiveInspectionDetails = async (req,res) => {
-  let correctiveInspection = await CorrectiveInspection.find({ '_id': { $in: req.param('id').split(",") } }, function(err, correctiveInspection) {
+  let correctiveInspection = await CorrectiveInspection.find({ '_id': { $in: req.params.id.split(",") } }, function(err, correctiveInspection) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -43,7 +43,7 @@ exports.correctiveInspectionDetails = async (req,res) => {
 }
 
 exports.correctiveInspectionUpdate = async (req,res) => {
-  let correctiveInspection = await CorrectiveInspection.findByIdAndUpdate(req.param('id'), req.body[0], function(err, correctiveInspection) {
+  let correctiveInspection = await CorrectiveInspection.findByIdAndUpdate(req.params.id, req.body[0], function(err, correctiveInspection) {
     if (err) {
       return res.status(400).json({
         error: err,

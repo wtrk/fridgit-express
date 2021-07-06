@@ -73,7 +73,7 @@ exports.allocationRulesFilterTop = async (req,res) => {
 
 exports.allocationRuleDetails = async (req,res) => {
   
-  let allocationRule = await AllocationRule.findById(req.param('id'), function(err, allocationRule) {
+  let allocationRule = await AllocationRule.findById(req.params.id, function(err, allocationRule) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -89,7 +89,7 @@ exports.allocationRuleDetails = async (req,res) => {
 
 exports.allocationRuleUpdate = async (req,res) => {
   
-  let allocationRule = await AllocationRule.findByIdAndUpdate(req.param('id'), req.body[0], function(err, allocationRule) {
+  let allocationRule = await AllocationRule.findByIdAndUpdate(req.params.id, req.body[0], function(err, allocationRule) {
     if (err) {
       return res.status(400).json({
         error: err,

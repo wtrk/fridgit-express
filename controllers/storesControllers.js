@@ -24,7 +24,7 @@ exports.storesList = async (req,res) => {
 }
 
 exports.storeDetails = async (req,res) => {
-  let store = await Store.findById(req.param('id'), function(err, store) {
+  let store = await Store.findById(req.params.id, function(err, store) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -39,7 +39,7 @@ exports.storeDetails = async (req,res) => {
 }
 
 exports.storeUpdate = async (req,res) => {
-  let store = await Store.findByIdAndUpdate(req.param('id'), req.body[0], function(err, store) {
+  let store = await Store.findByIdAndUpdate(req.params.id, req.body[0], function(err, store) {
     if (err) {
       return res.status(400).json({
         error: err,

@@ -139,7 +139,7 @@ exports.liveOperationsTabsCount = async (req,res) => {
 }
 
 exports.liveOperationDetails = async (req,res) => {
-  let liveOperation = await LiveOperation.findById(req.param('id'), function(err, liveOperation) {
+  let liveOperation = await LiveOperation.findById(req.params.id, function(err, liveOperation) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -185,7 +185,7 @@ exports.liveOperationDetailsByOperationNumber = async (req,res) => {
 }
 
 exports.liveOperationUpdate = async (req,res) => {
-  let liveOperation = await LiveOperation.findByIdAndUpdate(req.param('id'), req.body[0], function(err, liveOperation) {
+  let liveOperation = await LiveOperation.findByIdAndUpdate(req.params.id, req.body[0], function(err, liveOperation) {
     if (err) {
       return res.status(400).json({
         error: err,

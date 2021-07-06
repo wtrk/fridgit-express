@@ -26,7 +26,7 @@ exports.sparePartsList = async (req,res) => {
 }
 
 exports.sparePartDetails = async (req,res) => {
-  let sparePart = await SparePart.find({ '_id': { $in: req.param('id').split(",") } }, function(err, sparePart) {
+  let sparePart = await SparePart.find({ '_id': { $in: req.params.id.split(",") } }, function(err, sparePart) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -41,7 +41,7 @@ exports.sparePartDetails = async (req,res) => {
 }
 
 exports.sparePartUpdate = async (req,res) => {
-  let sparePart = await SparePart.findByIdAndUpdate(req.param('id'), req.body[0], function(err, sparePart) {
+  let sparePart = await SparePart.findByIdAndUpdate(req.params.id, req.body[0], function(err, sparePart) {
     if (err) {
       return res.status(400).json({
         error: err,

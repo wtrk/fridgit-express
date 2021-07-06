@@ -24,7 +24,7 @@ exports.neighbourhoodsList = async (req,res) => {
 }
 
 exports.neighbourhoodDetails = async (req,res) => {
-  let neighbourhood = await Neighbourhood.findById(req.param('id'), function(err, neighbourhood) {
+  let neighbourhood = await Neighbourhood.findById(req.params.id, function(err, neighbourhood) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -39,7 +39,7 @@ exports.neighbourhoodDetails = async (req,res) => {
 }
 
 exports.neighbourhoodUpdate = async (req,res) => {
-  let neighbourhood = await Neighbourhood.findByIdAndUpdate(req.param('id'), req.body[0], function(err, neighbourhood) {
+  let neighbourhood = await Neighbourhood.findByIdAndUpdate(req.params.id, req.body[0], function(err, neighbourhood) {
     if (err) {
       return res.status(400).json({
         error: err,
