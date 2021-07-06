@@ -83,13 +83,13 @@ exports.fridgesTypeUpdateImg = async (req,res) => {
   if (req.files !== null) {
     const file = req.files.file;
   
-    file.mv(`../frontend/public/img/types/${file.name}`, err => {
+    file.mv(`public/files/types/${file.name}`, err => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);
       }
   
-      let fridgesType = FridgesType.findByIdAndUpdate(req.param('id'), {"photo":file.name}, function(err, fridgesType) {
+      let fridgesType = FridgesType.findByIdAndUpdate(req.params.id, {"photo":file.name}, function(err, fridgesType) {
         if (err) {
           return res.status(400).json({
             error: err,
