@@ -23,6 +23,10 @@ const clientsSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    company_id: {
+      type: String,
+      trim: true,
+    },
     contacts: [{
       name: {
         type: String,

@@ -52,8 +52,6 @@ exports.priceRulesList = async (req,res) => {
     conditionsSubmitted["tiersOut.name"]=tiersOut.name
   }
 
-
-  console.log("conditionsSubmitted",conditionsSubmitted)
   let priceRules = await PriceRule.find(conditionsSubmitted, null, {sort: { 'priority' : 1,'updatedAt' : -1 }}, function(err, dbData) {
     if (err) {
       return res.status(400).json({
@@ -107,17 +105,15 @@ exports.priceRulesFilterTop = async (req,res) => {
   if(req.query.serviceType) conditionsSubmitted.push({service:req.query.serviceType})
   conditionsSubmitted.push({active:1})
 
-
+  // return res.json(conditionsSubmitted);
   let priceRules = await PriceRule.find({$and: conditionsSubmitted},null,
     { sort: { priority: 1, updatedAt: -1 }, limit: 1 },
     function (err, data) {
-      console.log("data",data)
       if (err) {
         return res.status(400).json({
           error: err,
         });
       }
-      console.log("data", data);
       return res.json(data[0]||{});
     }
   );

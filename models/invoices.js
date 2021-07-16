@@ -8,6 +8,7 @@ const invoicesSchema = new mongoose.Schema(
     from: Date,
     to: Date,
     total: Number,
+    reference_number: String,
     paid: Boolean
   },
   { timestamps: true }

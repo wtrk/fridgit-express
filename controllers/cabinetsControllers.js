@@ -13,20 +13,25 @@ exports.cabinetAdd = async (req,res) => {
   let notValidData=[]
   let validData=[]
   req.body.forEach(e => {
-    if(sn.includes(JSON.stringify(e.sn))){
+    if(sn.includes(e.sn)){
       notValidData.push(e)
     }else{
       validData.push(e)
     }
   });
-  let newCabinet = await Cabinet.insertMany(validData, function(err, data) {
-    if (err) {
-      return res.status(400).json({
-        error: err,
-      });
-    }
-    return res.json({message:"Successfully added",validData,notValidData});
-  })
+  console.log(validData.length)
+  if(validData.length){
+    let newCabinet = await Cabinet.insertMany(validData, function(err, data) {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      return res.json({message:"Successfully added",validData,notValidData});
+    })
+  }else{
+    return res.status(400).json({ message: "SN already exists"});
+  }
 }
 
 
@@ -97,18 +102,27 @@ exports.cabinetsList = async (req,res) => {
     }
     
     if(req.query.operationType){
-      if(req.query.operationType === "Retrieval"){
-        conditionsSubmitted.location="store"
-      }else if(req.query.operationType === "External Receipt"){
-        conditionsSubmitted.location="NA"
-      }else if(req.query.operationType === "Deployment"){
-        conditionsSubmitted.location="warehouse"
-      }else if(req.query.operationType === "Corrective Maintenance" || req.query.operationType === "Preventive Maintenance"){
-        conditionsSubmitted.location={$ne:"NA"}
-      }else if(req.query.operationType === "Testing"){
-        conditionsSubmitted.status="Needs test"
-        conditionsSubmitted.location={$ne:"NA"}
-      }
+      switch(req.query.operationType) {
+        case "Retrieval":
+          conditionsSubmitted.location="store"
+        break;
+        case "External Receipt":
+          conditionsSubmitted.location="NA"
+        break;
+        case "Deployment":
+          conditionsSubmitted.location="warehouse"
+        break;
+        case "Corrective Maintenance":
+          conditionsSubmitted.location={$ne:"NA"}
+        break;
+        case "Preventive Maintenance":
+          conditionsSubmitted.location={$ne:"NA"}
+        break;
+        case "Testing":
+          conditionsSubmitted.status="Needs test"
+          conditionsSubmitted.location={$ne:"NA"}
+        break;
+      } 
     }
   }
     const limit = parseInt(req.query.limit);

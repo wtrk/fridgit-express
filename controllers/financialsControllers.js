@@ -3,6 +3,7 @@ const Cabinet = require('../models/cabinets')
 const LiveOperation = require('../models/liveOperations')
 const City = require('../models/cities')
 const Neighbourhood = require('../models/neighbourhoods')
+const Client = require('../models/clients')
 const moment = require('moment');
 
 exports.financialAdd = async (req,res) => {
@@ -40,7 +41,7 @@ exports.financialsList = async (req,res) => {
           if (dbData.length) {
             sn1=dbData.map(e=>String(e._id))
           }else{
-            return res.json([])
+            return []
           }
       });
     }
@@ -54,7 +55,7 @@ exports.financialsList = async (req,res) => {
         if (dbData.length) {
           sn2=dbData.map(e=>String(e._id))
         }else{
-          return res.json([])
+          return []
         }
       });
     }
@@ -76,7 +77,7 @@ exports.financialsList = async (req,res) => {
   }
     const limit = parseInt(req.query.limit);
     const skip = parseInt(req.query.skip);
-
+// return console.log("conditionsSubmitted",conditionsSubmitted)
     const count= await Financial.estimatedDocumentCount(conditionsSubmitted, (err, count) => count);
 
       
@@ -89,6 +90,51 @@ exports.financialsList = async (req,res) => {
     return res.json({count,data});
   });
 }
+
+
+exports.financialsListForInvoice = async (req,res) => {
+  let conditionsSubmitted={}
+  let companyId=""
+
+    if(req.query.clientId){
+      await Cabinet.find({client:req.query.clientId}, '_id', function(err, dbData) {
+          if (dbData.length) {
+            conditionsSubmitted.sn = { "$in" : dbData.map(e=>String(e._id))}
+          }else{
+            conditionsSubmitted.sn = 0
+          }
+      });
+      await Client.findById(req.query.clientId, function(err, client) {
+        if (client===null) {
+          companyId=0
+        }else{
+          companyId=client.company_id
+        }
+      })
+    }
+    
+    if(req.query.fromDate || req.query.toDate){
+      let datesConditions={}
+      if(req.query.fromDate) datesConditions.$gte=new Date(req.query.fromDate)
+      if(req.query.toDate) datesConditions.$lt=new Date(req.query.toDate)
+      conditionsSubmitted.createdAt=datesConditions
+    }
+    conditionsSubmitted.invoice_id = { "$in": [ null, "" ] }
+    conditionsSubmitted.user_id = req.query.userId
+    
+    const count= await Financial.estimatedDocumentCount(conditionsSubmitted, (err, count) => count);
+
+      
+  let financial = await Financial.find(conditionsSubmitted, null, {sort: { 'updatedAt' : -1 }}, function(err, data) {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json({count,companyId,data});
+  });
+}
+
 
 
 exports.financialsListToExport = async (req,res) => {

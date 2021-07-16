@@ -30,7 +30,9 @@ const financialSchema = new mongoose.Schema(
       shop_name: String,
       mobile: String,
     },
-    operation_type: String
+    operation_type: String,
+    invoice_id: String,
+    user_id: String
   },
   { timestamps: true }
 );

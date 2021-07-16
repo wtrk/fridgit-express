@@ -1,13 +1,20 @@
 const Invoice = require('../models/invoices')
+const Financial = require('../models/financials')
+const Client = require('../models/clients')
 
 exports.invoiceAdd = async (req,res) => {
-  let newInvoice = await Invoice.insertMany(req.body, function(err, invoices) {
+  const client= await Client.find({}, (err, clientData) => clientData);
+
+  await Invoice.insertMany(req.body, function(err, dataDb) {
+    let companyId=client.find(e=>String(e._id)===dataDb[0].client_id)?client.find(e=>String(e._id)===dataDb[0].client_id).company_id:0
     if (err) {
       return res.status(400).json({
         error: err,
       });
     }
-      return res.json("Successfully added");
+    Financial.updateMany({_id: {$in: req.body[0].finance_ids}}, {$set: {invoice_id: dataDb[0]._id}}).then(ret => {
+      return res.json({message:"Successfully added",data:dataDb,companyId});
+    });
   })
 }
 
@@ -18,28 +25,36 @@ exports.invoicesList = async (req,res) => {
         error: err,
       });
     }
-      return res.json(invoices);
+   return res.json(invoices);
     
   });
 }
 
 exports.invoiceDetails = async (req,res) => {
-  let invoice = await Invoice.findById(req.params.id, function(err, invoice) {
+  const finance= await Financial.find({invoice_id: req.params.id}, (err, financeData) => financeData);
+  const client= await Client.find({}, (err, clientData) => clientData);
+
+  
+
+
+  let invoice = await Invoice.findById(req.params.id, function(err, data) {
+    let companyId=client.find(e=>String(e._id)===data.client_id)?client.find(e=>String(e._id)===data.client_id).company_id:0
     if (err) {
       return res.status(400).json({
         error: err,
       });
     }
-    if (invoice===null) {
+    if (data===null) {
       return res.status(400)
         .json({ error: "Invoice not available in the database" });
     }
-    return res.json(invoice);
+
+    return res.json({data,companyId,finance});
   });
 }
 
 exports.invoiceUpdate = async (req,res) => {
-  let invoice = await Invoice.findByIdAndUpdate(req.params.id, req.body[0], function(err, invoice) {
+  await Invoice.findByIdAndUpdate(req.params.id, req.body[0], function(err, invoice) {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -50,8 +65,11 @@ exports.invoiceUpdate = async (req,res) => {
         .status(400)
         .json({ error: "Invoice not available in the database" });
     }
-    return res.json(invoice);
+    Financial.updateMany({_id: {$in: req.body[0].finance_ids}}, {$set: {invoice_id: req.body[0]._id}}).then(ret => {
+      return res.json(invoice);
+    });
   });
+
   
 }
 
