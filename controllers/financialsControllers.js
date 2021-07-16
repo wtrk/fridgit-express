@@ -309,8 +309,9 @@ exports.financialsListDaily = async (req,res) => {
           resData.push([dbData[i]])
         }
       }
+      console.log("resData",resData)
       
-      let finalData = resData.map(e=>{
+      let calculatedData = resData.map(e=>{
         return e.reduce((a,b)=>({
           handling_in: a.handling_in + b.handling_in,
           storage: a.storage + b.storage,
@@ -323,11 +324,28 @@ exports.financialsListDaily = async (req,res) => {
           preventive_maintenance: a.preventive_maintenance + b.preventive_maintenance,
           exchange_corrective_reaction: a.exchange_corrective_reaction + b.exchange_corrective_reaction,
           corrective_reaction: a.corrective_reaction + b.corrective_reaction,
-          total: a.total + b.total,
+          total: Math.trunc(a.total + b.total),
           createdAt:a.createdAt
         }))
       })
-      return res.json(finalData);
+
+      calculatedData.push(calculatedData.reduce((a,b)=>({
+        handling_in: a.handling_in + b.handling_in,
+        storage: a.storage + b.storage,
+        in_house_preventive_maintenance: a.in_house_preventive_maintenance + b.in_house_preventive_maintenance,
+        corrective_service_in_house: a.corrective_service_in_house + b.corrective_service_in_house,
+        cabinet_testing_fees: a.cabinet_testing_fees + b.cabinet_testing_fees,
+        branding_fees: a.branding_fees + b.branding_fees,
+        transportation_fees: a.transportation_fees + b.transportation_fees,
+        drop: a.drop + b.drop,
+        preventive_maintenance: a.preventive_maintenance + b.preventive_maintenance,
+        exchange_corrective_reaction: a.exchange_corrective_reaction + b.exchange_corrective_reaction,
+        corrective_reaction: a.corrective_reaction + b.corrective_reaction,
+        total: a.total + b.total,
+        createdAt:"Total"
+      })))
+
+      return res.json(calculatedData);
     
   });
 }
