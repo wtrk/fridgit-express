@@ -77,7 +77,14 @@ exports.financialsList = async (req,res) => {
   }
     const limit = parseInt(req.query.limit);
     const skip = parseInt(req.query.skip);
-// return console.log("conditionsSubmitted",conditionsSubmitted)
+
+    
+    if(req.query.tabs){
+      conditionsSubmitted[req.query.tabs]={$nin:[0,null]}
+    }
+
+
+ console.log("conditionsSubmitted",conditionsSubmitted)
     const count= await Financial.estimatedDocumentCount(conditionsSubmitted, (err, count) => count);
 
       
@@ -88,6 +95,27 @@ exports.financialsList = async (req,res) => {
       });
     }
     return res.json({count,data});
+  });
+}
+
+
+exports.financialTabs = async (req,res) => {
+  await Financial.find({}, null, function(err, dataDb) {
+    let data = dataDb.reduce((a,b)=>({
+        total: Math.trunc(a.total + b.total) || 0,
+        handling_in: Math.trunc(a.handling_in + b.handling_in) || 0,
+        storage: Math.trunc(a.storage + b.storage) || 0,
+        in_house_preventive_maintenance: Math.trunc(a.in_house_preventive_maintenance + b.in_house_preventive_maintenance) || 0,
+        corrective_service_in_house: Math.trunc(a.corrective_service_in_house + b.corrective_service_in_house) || 0,
+        cabinet_testing_fees: Math.trunc(a.cabinet_testing_fees + b.cabinet_testing_fees) || 0,
+        branding_fees: Math.trunc(a.branding_fees + b.branding_fees) || 0,
+        transportation_fees: Math.trunc(a.transportation_fees + b.transportation_fees) || 0,
+        drop: Math.trunc(a.drop + b.drop) || 0,
+        preventive_maintenance: Math.trunc(a.preventive_maintenance + b.preventive_maintenance) || 0,
+        exchange_corrective_reaction: Math.trunc(a.exchange_corrective_reaction + b.exchange_corrective_reaction) || 0,
+        corrective_reaction: Math.trunc(a.corrective_reaction + b.corrective_reaction) || 0
+    }))
+    return res.json(data);
   });
 }
 
@@ -309,22 +337,21 @@ exports.financialsListDaily = async (req,res) => {
           resData.push([dbData[i]])
         }
       }
-      console.log("resData",resData)
       
       let calculatedData = resData.map(e=>{
         return e.reduce((a,b)=>({
-          handling_in: a.handling_in + b.handling_in,
-          storage: a.storage + b.storage,
-          in_house_preventive_maintenance: a.in_house_preventive_maintenance + b.in_house_preventive_maintenance,
-          corrective_service_in_house: a.corrective_service_in_house + b.corrective_service_in_house,
-          cabinet_testing_fees: a.cabinet_testing_fees + b.cabinet_testing_fees,
-          branding_fees: a.branding_fees + b.branding_fees,
-          transportation_fees: a.transportation_fees + b.transportation_fees,
-          drop: a.drop + b.drop,
-          preventive_maintenance: a.preventive_maintenance + b.preventive_maintenance,
-          exchange_corrective_reaction: a.exchange_corrective_reaction + b.exchange_corrective_reaction,
-          corrective_reaction: a.corrective_reaction + b.corrective_reaction,
-          total: Math.trunc(a.total + b.total),
+          handling_in: Math.trunc(a.handling_in + b.handling_in) || 0,
+          storage: Math.trunc(a.storage + b.storage) || 0,
+          in_house_preventive_maintenance: Math.trunc(a.in_house_preventive_maintenance + b.in_house_preventive_maintenance) || 0,
+          corrective_service_in_house: Math.trunc(a.corrective_service_in_house + b.corrective_service_in_house) || 0,
+          cabinet_testing_fees: Math.trunc(a.cabinet_testing_fees + b.cabinet_testing_fees) || 0,
+          branding_fees: Math.trunc(a.branding_fees + b.branding_fees) || 0,
+          transportation_fees: Math.trunc(a.transportation_fees + b.transportation_fees) || 0,
+          drop: Math.trunc(a.drop + b.drop) || 0,
+          preventive_maintenance: Math.trunc(a.preventive_maintenance + b.preventive_maintenance) || 0,
+          exchange_corrective_reaction: Math.trunc(a.exchange_corrective_reaction + b.exchange_corrective_reaction) || 0,
+          corrective_reaction: Math.trunc(a.corrective_reaction + b.corrective_reaction) || 0,
+          total: Math.trunc(a.total + b.total) || 0,
           createdAt:a.createdAt
         }))
       })

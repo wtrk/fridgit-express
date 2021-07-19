@@ -163,6 +163,7 @@ router.put("/cabinets/:id", cabinetsControllers.cabinetUpdate)
 router.delete("/cabinets/:ids", cabinetsControllers.cabinetDelete)
 
 router.get("/financial", financialsControllers.financialsList)
+router.get("/financial/tabs", financialsControllers.financialTabs)
 router.get("/financialForInvoice", financialsControllers.financialsListForInvoice)
 router.get("/financials/export", financialsControllers.financialsListToExport)
 router.get("/financial/byJobNumber/:jobNumber", financialsControllers.financialDetailsByJobNumber)
