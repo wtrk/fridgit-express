@@ -123,7 +123,6 @@ exports.financialTabs = async (req,res) => {
 exports.financialsListForInvoice = async (req,res) => {
   let conditionsSubmitted={}
   let companyId=""
-
     if(req.query.clientId){
       await Cabinet.find({client:req.query.clientId}, '_id', function(err, dbData) {
           if (dbData.length) {
@@ -140,6 +139,7 @@ exports.financialsListForInvoice = async (req,res) => {
         }
       })
     }
+    // return res.json(conditionsSubmitted)
     
     if(req.query.fromDate || req.query.toDate){
       let datesConditions={}
@@ -148,7 +148,7 @@ exports.financialsListForInvoice = async (req,res) => {
       conditionsSubmitted.createdAt=datesConditions
     }
     conditionsSubmitted.invoice_id = { "$in": [ null, "" ] }
-    conditionsSubmitted.user_id = req.query.userId
+    // conditionsSubmitted.user_id = req.query.userId
     
     const count= await Financial.estimatedDocumentCount(conditionsSubmitted, (err, count) => count);
 

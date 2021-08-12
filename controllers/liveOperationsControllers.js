@@ -63,13 +63,15 @@ exports.liveOperationsList = async (req,res) => {
       conditionsSubmitted.createdAt=datesConditions
     }
 
+    if(req.query.exceededPreventive=='true'){
+      conditionsSubmitted.promise_date={$gte:new Date()}
+    }
   }
     const limit = parseInt(req.query.limit);
     const skip = parseInt(req.query.skip);
 
     const count= await LiveOperation.estimatedDocumentCount(conditionsSubmitted, (err, count) => count);
 
-      
   let liveOperation = await LiveOperation.find(conditionsSubmitted, null, {sort: { 'updatedAt' : -1 }, skip, limit}, function(err, data) {
     if (err) {
       return res.status(400).json({
