@@ -3,8 +3,6 @@ const Warehouse = require('../models/warehouses')
 const Store = require('../models/stores')
 
 exports.allocationRuleAdd = async (req,res) => {
-  
-  console.log("req","ppp",req.body)
   let newAllocationRule = await AllocationRule.insertMany(req.body, function(err, allocationRules) {
     if (err) {
       return res.status(400).json({

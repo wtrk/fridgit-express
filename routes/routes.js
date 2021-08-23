@@ -18,6 +18,7 @@ const serviceTypesControllers = require('../controllers/serviceTypesControllers'
 const suppliersControllers = require('../controllers/suppliersControllers')
 const invoicesControllers = require('../controllers/invoicesControllers')
 const authControllers = require('../controllers/authControllers')
+const cronControllers = require('../controllers/cronControllers')
 const operationActionsControllers = require('../controllers/operationActionsControllers')
 const operationInspectionsControllers = require('../controllers/operationInspectionsControllers')
 const operationSparePartsControllers = require('../controllers/operationSparePartsControllers')
@@ -295,6 +296,7 @@ router.put("/companies/:id", companiesControllers.companyUpdate)
 router.delete("/companies/:ids", companiesControllers.companyDelete)
 router.put("/companies/img/:id", companiesControllers.companyUpdateImg)
 
+router.get("/cron", cronControllers.cron)
 router.post("/signin", authControllers.signin)
 
 module.exports = router

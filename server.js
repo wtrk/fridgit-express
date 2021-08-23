@@ -1,9 +1,11 @@
 const express = require('express')
+const cron = require('node-cron');
 const morgan = require('morgan')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const fileUpload = require('express-fileupload');
+const axios = require('axios')
 require('dotenv').config()
 
 const app= express()
@@ -39,6 +41,15 @@ app.use(function(req, res, next) {
 
 //middleware
 app.use('/api',routes)
+
+// Schedule tasks to be run on the server.
+if(process.env.NODE_ENV!="development"){
+cron.schedule('* * * * *', function() {
+    axios(`${process.env.CLIENT_URL}/api/cron`).then(function (response) {
+        console.log(response.data)
+      });
+});
+}
 
 
 const port = process.env.PORT || 8000
