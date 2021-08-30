@@ -44,7 +44,7 @@ app.use('/api',routes)
 
 // Schedule tasks to be run on the server.
 if(process.env.NODE_ENV!="development"){
-cron.schedule('* * * * *', function() {
+cron.schedule('0 0 * * *', function() {
     axios(`${process.env.CLIENT_URL}/api/cron`).then(function (response) {
         console.log(response.data)
       });
